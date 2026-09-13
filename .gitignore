@@ -1,0 +1,36 @@
+# Secrets and operational database
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+passwords.txt
+config.local.php
+site/config.php
+site/includes/config.php
+
+# Session tokens, resume tokens, admin credentials
+*token*
+*secret*
+*.sql
+*.sql.gz
+dumps/
+mariadb/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Large local model caches
+.cache/
+models/
+*.bin
+*.safetensors
