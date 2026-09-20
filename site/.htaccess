@@ -1,0 +1,32 @@
+DirectoryIndex index.php index.html
+
+# Prefer our app over Plesk default index.html
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^index\.html$ index.php [L]
+  RewriteRule ^(config\.local\.php|config\.example\.php)$ - [F,L]
+  RewriteRule ^(lib|sql|scripts|data)/ - [F,L]
+  RewriteRule ^install\.php(\.done)?$ - [F,L]
+  RewriteRule \.md$ - [F,L]
+  RewriteRule \.sql$ - [F,L]
+  RewriteRule (^|/)\.git - [F,L]
+  RewriteRule (^|/)\.env - [F,L]
+</IfModule>
+
+<FilesMatch "^(config\.local\.php|config\.example\.php|install\.php)$">
+  Require all denied
+</FilesMatch>
+
+<FilesMatch "\.(md|sql|env)$">
+  Require all denied
+</FilesMatch>
+
+# Security headers (Apache; PHP also sets these)
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always unset X-Powered-By
+</IfModule>

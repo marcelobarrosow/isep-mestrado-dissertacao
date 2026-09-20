@@ -12,10 +12,12 @@ site/includes/config.php
 # Session tokens, resume tokens, admin credentials
 *token*
 *secret*
-*.sql
-*.sql.gz
+
+# Database dumps (keep site/sql/*.sql schema/migrations)
 dumps/
 mariadb/
+*.sql.gz
+/*.sql
 
 # Python
 __pycache__/

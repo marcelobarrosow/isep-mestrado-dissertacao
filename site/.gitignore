@@ -1,0 +1,6 @@
+config.local.php
+install.php.done
+.DS_Store
+*.log
+.idea/
+.vscode/

@@ -1,0 +1,235 @@
+{
+  "n": 2016,
+  "n_participants": 52,
+  "n_items": 96,
+  "re_structure": "crossed: dummy group + VC(participante) + VC(item)",
+  "model_crossed": {
+    "formula": "score ~ C(condicao)*C(epoca) + (1|participante) + (1|item)  [crossed]",
+    "converged": true,
+    "params": {
+      "Intercept": 1.8179250744704742,
+      "C(condicao)[T.pipeline]": -0.26883910530864835,
+      "C(epoca)[T.E2]": 1.9365318519865307,
+      "C(epoca)[T.E3]": 4.525583305643066,
+      "C(epoca)[T.E4]": 3.819489680225162,
+      "C(condicao)[T.pipeline]:C(epoca)[T.E2]": 0.32762599859809605,
+      "C(condicao)[T.pipeline]:C(epoca)[T.E3]": 0.12119394937399447,
+      "C(condicao)[T.pipeline]:C(epoca)[T.E4]": 0.32975628472127366,
+      "item Var": 0.19907381864582585,
+      "participante Var": 0.3599832141148833
+    },
+    "pvalues": {
+      "Intercept": 1.5330402411974083e-26,
+      "C(condicao)[T.pipeline]": 0.1948109084488875,
+      "C(epoca)[T.E2]": 1.0902368508461817e-20,
+      "C(epoca)[T.E3]": 1.2340664575132837e-104,
+      "C(epoca)[T.E4]": 1.4942916862813356e-74,
+      "C(condicao)[T.pipeline]:C(epoca)[T.E2]": 0.2635361702443566,
+      "C(condicao)[T.pipeline]:C(epoca)[T.E3]": 0.6793231032568092,
+      "C(condicao)[T.pipeline]:C(epoca)[T.E4]": 0.26196774306113835,
+      "item Var": 1.923556442465385e-07,
+      "participante Var": 4.302600231803152e-06
+    },
+    "conf_int": {
+      "Intercept": [
+        1.483740543179314,
+        2.1521096057616345
+      ],
+      "C(condicao)[T.pipeline]": [
+        -0.6752594436956179,
+        0.13758123307832115
+      ],
+      "C(epoca)[T.E2]": [
+        1.5295866656237014,
+        2.34347703834936
+      ],
+      "C(epoca)[T.E3]": [
+        4.11726805814787,
+        4.9338985531382615
+      ],
+      "C(epoca)[T.E4]": [
+        3.4096935452638286,
+        4.229285815186495
+      ],
+      "C(condicao)[T.pipeline]:C(epoca)[T.E2]": [
+        -0.24669753207927936,
+        0.9019495292754715
+      ],
+      "C(condicao)[T.pipeline]:C(epoca)[T.E3]": [
+        -0.4534147836595784,
+        0.6958026824075674
+      ],
+      "C(condicao)[T.pipeline]:C(epoca)[T.E4]": [
+        -0.24640513853164453,
+        0.9059177079741918
+      ],
+      "item Var": [
+        0.12413446854952036,
+        0.27401316874213133
+      ],
+      "participante Var": [
+        0.20647516164532786,
+        0.5134912665844388
+      ]
+    },
+    "llf": -3048.0320286239657,
+    "epoch_pipeline_contrasts": [
+      {
+        "epoca": "E1",
+        "delta": -0.26883910530864835,
+        "se": 0.20736112581290336,
+        "z": -1.2964778439292184,
+        "p": 0.1948109084488875,
+        "ci95": [
+          -0.675266911901939,
+          0.13758870128464223
+        ],
+        "terms": [
+          "C(condicao)[T.pipeline]"
+        ]
+      },
+      {
+        "epoca": "E2",
+        "delta": 0.058786893289447695,
+        "se": 0.20697788154843685,
+        "z": 0.28402500233190575,
+        "p": 0.7763912202322288,
+        "ci95": [
+          -0.34688975454548854,
+          0.4644635411243839
+        ],
+        "terms": [
+          "C(condicao)[T.pipeline]",
+          "C(condicao)[T.pipeline]:C(epoca)[T.E2]"
+        ]
+      },
+      {
+        "epoca": "E3",
+        "delta": -0.14764515593465388,
+        "se": 0.207308908729319,
+        "z": -0.7121987995577777,
+        "p": 0.4763416802180972,
+        "ci95": [
+          -0.5539706170441192,
+          0.2586803051748114
+        ],
+        "terms": [
+          "C(condicao)[T.pipeline]",
+          "C(condicao)[T.pipeline]:C(epoca)[T.E3]"
+        ]
+      },
+      {
+        "epoca": "E4",
+        "delta": 0.06091717941262531,
+        "se": 0.20885963057567278,
+        "z": 0.29166564761568015,
+        "p": 0.7705422769365715,
+        "ci95": [
+          -0.34844769651569335,
+          0.47028205534094397
+        ],
+        "terms": [
+          "C(condicao)[T.pipeline]",
+          "C(condicao)[T.pipeline]:C(epoca)[T.E4]"
+        ]
+      }
+    ],
+    "interaction_omnibus": {
+      "statistic": 1.8385031864286043,
+      "df": 3,
+      "p": 0.6065922677451487,
+      "H0": "all condition×epoch interactions = 0"
+    }
+  },
+  "model_additive_crossed": {
+    "formula": "score ~ C(condicao)+C(epoca) + (1|participante) + (1|item)  [crossed]",
+    "converged": true,
+    "params": {
+      "Intercept": 1.7194775361232633,
+      "C(condicao)[T.pipeline]": -0.07445859414028208,
+      "C(epoca)[T.E2]": 2.101285158240595,
+      "C(epoca)[T.E3]": 4.5868711774872875,
+      "C(epoca)[T.E4]": 3.9859699597688323,
+      "item Var": 0.19617949568741722,
+      "participante Var": 0.36000673440278724
+    },
+    "pvalues": {
+      "Intercept": 6.734632417241274e-33,
+      "C(condicao)[T.pipeline]": 0.4707763500869616,
+      "C(epoca)[T.E2]": 3.723592997348298e-47,
+      "C(epoca)[T.E3]": 3.717922966090362e-217,
+      "C(epoca)[T.E4]": 1.77510895637797e-163,
+      "item Var": 1.2805467973924313e-07,
+      "participante Var": 4.296395017598278e-06
+    },
+    "conf_int": {
+      "Intercept": [
+        1.4373877891371711,
+        2.0015672831093556
+      ],
+      "C(condicao)[T.pipeline]": [
+        -0.27680583971997563,
+        0.12788865143941144
+      ],
+      "C(epoca)[T.E2]": [
+        1.8157327452415983,
+        2.386837571239592
+      ],
+      "C(epoca)[T.E3]": [
+        4.301052397062815,
+        4.87268995791176
+      ],
+      "C(epoca)[T.E4]": [
+        3.699252515747988,
+        4.272687403789677
+      ],
+      "item Var": [
+        0.12337880375013621,
+        0.2689801876246982
+      ],
+      "participante Var": [
+        0.20649870066064444,
+        0.51351476814493
+      ]
+    },
+    "llf": -3047.681676535244
+  },
+  "participant_mean_contrasts": [
+    {
+      "epoca": "E1",
+      "design": "paired_participant_means",
+      "n_pairs": 52,
+      "delta": -0.5181089743589744,
+      "sd_delta": 1.1224954419076376,
+      "t": -3.328420595017525,
+      "p": 0.001626956291895491
+    },
+    {
+      "epoca": "E2",
+      "design": "paired_participant_means",
+      "n_pairs": 52,
+      "delta": 0.08380994005994004,
+      "sd_delta": 1.225986283635809,
+      "t": 0.4929598973709938,
+      "p": 0.6241568227984718
+    },
+    {
+      "epoca": "E3",
+      "design": "paired_participant_means",
+      "n_pairs": 40,
+      "delta": -0.11261814574314574,
+      "sd_delta": 0.5727600999672071,
+      "t": -1.2435567576495863,
+      "p": 0.22108619963251627
+    },
+    {
+      "epoca": "E4",
+      "design": "paired_participant_means",
+      "n_pairs": 45,
+      "delta": -0.17649029982363323,
+      "sd_delta": 0.9975325482860036,
+      "t": -1.1868614466356668,
+      "p": 0.24165094173136584
+    }
+  ]
+}
