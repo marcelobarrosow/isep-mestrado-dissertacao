@@ -1,0 +1,59 @@
+% Chapter 6
+% Conclusões e Trabalho Futuro
+
+\chapter{Conclusões e Trabalho Futuro}
+\label{chap:Chapter6}
+
+Este capítulo sintetiza as conclusões empíricas do Capítulo~\ref{chap:Chapter5}, as limitações e o trabalho futuro.
+
+%----------------------------------------------------------------------------------------
+
+\section{Síntese dos contributos}
+\label{sec:conc_contributos}
+
+O trabalho produziu os seguintes contributos: (i) uma definição operacional de \gls{ambivalenciaemocional} a partir da classificação multilabel GoEmotions; (ii) uma \gls{pipeline} documentada e disponibilizada para replicação, em Python, com Hugging Face Transformers, que injecta esse sinal no contexto de geração; (iii) um protocolo cego factorial (condição \(\times\) época) com quatro geradores âncora alinhados a marcos históricos; (iv) um questionário online desenvolvido para este estudo e uma análise centrada no diferencial \(\Delta\) e nas médias absolutas de empatia percebida. As 96 células foram geradas, e a avaliação humana, com 52 participantes no filtro estrito e 2016 classificações na análise principal, está reportada no Capítulo~\ref{chap:Chapter5}.
+
+%----------------------------------------------------------------------------------------
+
+\section{Conclusões}
+\label{sec:conc_conclusoes}
+
+Foi construída uma definição operacional de ambivalência a partir do GoEmotions, uma pipeline em Python, com Hugging Face Transformers, que injecta esse sinal no contexto de geração, e um questionário cego com 96 células. Foi testado se esse sinal, face a uma \gls{baseline} sem metadados, aumenta a empatia percebida em quatro geradores âncora.
+
+A hipótese não se confirma. Os quatro contrastes da condição com sinal face à baseline, no modelo misto cruzado, incluem zero no \gls{ic}\,95\% (Tabela~\ref{tab:misto_contrastes}). A variação está entre geradores âncora, cerca de \(1{,}5\) em E1 e cerca de \(6{,}1\) em E3. A pipeline foi implementada e executada com sucesso, permitindo operacionalizar e tornar explícito o sinal de ambivalência; contudo, a sua utilização não produziu melhoria consistente da empatia percebida.
+
+O resultado sustenta apenas que a explicitação de rótulos afectivos derivados do próprio enunciado não apresentou valor incremental detectável neste desenho; não demonstra equivalência entre condições, porque os intervalos de confiança são largos para efeitos pequenos, nem inutilidade da informação afectiva. A interpretação permanece limitada pela ausência de validação humana da ambivalência (Secção~\ref{subsec:disc_constructo}).
+
+O passo seguinte, desenvolvido na Secção~\ref{sec:conc_futuro}, é validar humanamente a detecção de ambivalência, e não repetir o mesmo desenho com mais participantes.
+
+%----------------------------------------------------------------------------------------
+
+\section{Limitações}
+\label{sec:conc_limitacoes}
+
+A principal ameaça à validade de constructo decorre da dependência de um único classificador e limiar para definir, seleccionar e representar a ambivalência (Secção~\ref{subsec:disc_constructo}).
+
+As diferenças entre âncoras confundem época, modelo e descodificação; a «época» não foi isolada (Capítulos~\ref{chap:Chapter4} e~\ref{chap:Chapter5}). Uma só resposta por estímulo \(\times\) gerador \(\times\) condição não estima a variabilidade entre outputs do mesmo gerador âncora.
+
+A amostra é de conveniência, por bola de neve na rede pessoal e académica. Iniciaram 156 pessoas; concluíram 63; o filtro estrito retém 52. O abandono é sobretudo precoce. Sem demografia, não se testa se completadores e desistentes diferem. A tradução automática EN\(\rightarrow\)PT foi revista por humano. As respostas dos geradores âncora tiveram apenas uma revisão mínima, alinhada à \gls{qa} automática: células recusadas voltaram a ser executadas na mesma célula até a \gls{qa} aceitar, sem editar o texto nem escolher entre várias válidas. O número de células regeneradas não ficou registado no log. O conteúdo restante não foi editado, para preservar o comportamento gerado.
+
+A cegagem reduz enviesamentos de expectativa, mas não tira a subjectividade da empatia percebida. A opção de itens extra após o mínimo introduz auto-selecção no volume (mediana 24 itens; sete participantes avaliaram as 96 células). O item de prática (\texttt{s01\_\_E1\_\_baseline}) pode reaparecer na rotação pontuada. O ritmo demasiado rápido excluiu quatro participantes no filtro estrito. A verificação de atenção usa um alvo fixo (valor 2). Os testes Welch ao nível da classificação são apenas suplementares; a inferência principal é o misto cruzado (Secção~\ref{subsec:disc_poder}).
+
+A medida de empatia é uma escala global de sete pontos. A escala ordinal foi modelada como contínua na análise principal, por meio de um modelo misto linear, opção comum em escalas de sete pontos com volume elevado de observações; uma replicação poderia verificar robustez com modelos ordinais mistos. Quando as respostas já se situam perto do topo da escala, como em E3 (Secção~\ref{subsec:disc_ancoras}), a sensibilidade a ganhos adicionais diminui. Fala-se aqui em potencial efeito de tecto observado nesta amostra. O desenho avalia respostas isoladas a enunciados isolados. Uma nota elevada num único enunciado não equivale a compreensão social longitudinal \parencite{Zhang2026SAGE}.
+
+A escolha do endpoint, juízo humano cego, e não um modelo a classificar empatia, é uma força do desenho. Comparações recentes entre juízes-\gls{llm} e especialistas encontram inflação nas notas automáticas e menor fiabilidade em dimensões afectivas \parencite{Badawi2026MentalAlign}. Essa força não compensa as ameaças acima; apenas evita uma fonte adicional de viés no critério.
+
+%----------------------------------------------------------------------------------------
+
+\section{Trabalho futuro}
+\label{sec:conc_futuro}
+
+O passo que os resultados desta dissertação justificam de forma mais directa é uma validação humana da detecção de ambivalência, independente da geração. Avaliadores, nos mesmos 12 estímulos e antes de qualquer geração, identificam as emoções percebidas, classificam a intensidade de cada uma e avaliam o grau de ambivalência do enunciado. Estima-se a concordância entre avaliadores e entre os juízos humanos e o GoEmotions. Índices como o \(\alpha\) de Krippendorff ou o coeficiente de correlação intraclasse (ICC) ficam como possibilidade, não como método fixo. Sem isso, um \(\Delta\) próximo de zero mistura ``esta operacionalização não teve benefício detectável'' com ``o sinal não mede o constructo''. Qualquer extensão da pipeline deve esperar por essa validação.
+
+Com estímulos assim validados, uma replicação controlada poderia incluir textos não ambivalentes como controlo, várias gerações por célula com parâmetros uniformes, uma escala multi-item de empatia e verificação ordinal de robustez. Extensões como mais âncoras, outras línguas ou variação de \(\tau\) só fazem sentido depois deste controlo.
+
+O resultado observado sugere que o valor, se existir, está menos em explicitar rótulos derivados do próprio enunciado e mais numa representação intermédia (causa, necessidade e estratégia de resposta), a testar só depois da validação humana e da replicação controlada.
+
+Num horizonte posterior, poderá também avaliar-se se histórico conversacional e informação personalizada acrescentam valor que não está disponível no enunciado isolado.
+
+%----------------------------------------------------------------------------------------

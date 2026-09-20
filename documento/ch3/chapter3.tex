@@ -1,0 +1,200 @@
+% Chapter 3
+% Metodologia de Avaliação
+
+\chapter{Metodologia de Avaliação}
+\label{chap:Chapter3}
+
+Neste capítulo fica a metodologia, como se mede o efeito da \gls{ambivalenciaemocional} explícita na \gls{empatiapercebida} ao longo de geradores âncora. Inclui o enquadramento, as definições, o desenho condição \(\times\) época, os materiais, o recrutamento, o procedimento cego e a análise estatística. A realização técnica da pipeline e do questionário, adaptadores, \textit{prompts} e persistência, consta no Capítulo~\ref{chap:Chapter4}.
+
+%----------------------------------------------------------------------------------------
+
+\section{Enquadramento metodológico}
+\label{sec:enquadramento}
+
+A abordagem é experimental e avaliativa, no paradigma de \gls{dsr} (Capítulo~\ref{chap:Chapter1}). O objectivo é ver se a injecção explícita de um sinal de \gls{ambivalenciaemocional} melhora a \gls{empatiapercebida} face a uma \textit{baseline} sem esse sinal, e em que âncoras isso acontece.
+
+Epistemologicamente, adopta-se uma visão funcional da \gls{empatiacomputacional}, em que a empatia é o que o avaliador percebe, não uma experiência interna do sistema \parencite{Rashkin2019Empathy, Sharma2020Empathy}.
+
+Optou-se pela reutilização de modelos públicos consolidados: o classificador GoEmotions \parencite{Demszky2020GoEmotions} e geradores âncora por época (Secção~\ref{sec:desenho}), acedidos em Python via Hugging Face Transformers \parencite{Wolf2020Transformers}, concentrando o contributo original na derivação da ambivalência, na injecção controlada do sinal e no desenho de avaliação cega historicamente situada.
+
+%----------------------------------------------------------------------------------------
+
+\section{Definição operacional de emoção e ambivalência}
+\label{sec:definicao}
+
+A emoção é tratada como fenómeno linguístico observável (\gls{emocaoexpressa}), sem \glspl{inferenciaspsicologicas} \parencite{Wiebe2005Opinions, MohammadTurney2013Lexicon}.
+
+A detecção emocional utiliza um modelo de \gls{classificacaomultilabel} GoEmotions, que associa a cada enunciado emoções com activações contínuas \(s_i \in [0,1]\) \parencite{Demszky2020GoEmotions}.
+
+A \gls{ambivalenciaemocional} é definida como a coexistência, no mesmo enunciado, de pelo menos uma emoção de \gls{valenciaemocional} positiva e uma negativa, ambas com activação \(\ge \tau\), onde \(\tau = 0{,}10\). A coexistência de estados afectivos opostos é reconhecida na literatura psicológica e linguística \parencite{WielgopolanImbir2024Ambivalence}; neste trabalho a ambivalência é uma \gls{propriedadederivada}, não uma emoção autónoma, e esta é a definição operacional proposta.
+
+%----------------------------------------------------------------------------------------
+
+\section{Cálculo da ambivalência emocional}
+\label{sec:calculo}
+
+Seja \(E = \{(e_i, s_i)\}_{i=1}^{n}\) a saída do classificador. Cada emoção é mapeada para \(E^+\) ou \(E^-\) segundo a taxonomia GoEmotions (excluindo rótulos neutros/\textit{neutral}).
+
+A ambivalência binária verifica-se quando:
+\begin{equation}
+\exists \, e_p \in E^+ \text{ e } e_n \in E^- \text{ tais que } s_p \ge \tau \land s_n \ge \tau
+\label{eq:ambivalencia_binaria}
+\end{equation}
+com \(\tau = 0{,}10\). O \Gls{indiceambivalencia} é \(A = \min(s_p^\ast, s_n^\ast)\), onde \(s_p^\ast\) e \(s_n^\ast\) são as activações das emoções dominantes de cada valência. A fórmula de \(A\) é a definição operacional \textbf{proposta} neste trabalho, e a citação a Buechel e Hahn situa o contexto de regressão dimensional em texto emocional, sem identificar \(A\) com a métrica desses autores \parencite{BuechelHahn2016Regression}.
+
+\subsection{Justificação de \texorpdfstring{\(\tau\)}{tau} e do classificador}
+\label{subsec:tau_classificador}
+
+O classificador fixo é \texttt{SamLowe/roberta-base-go\_emotions}, uma implementação pública do inventário GoEmotions \parencite{Demszky2020GoEmotions}. Os conjuntos usados na derivação, definidos no código da \gls{pipeline}, são:
+\begin{itemize}
+ \item \(E^+\): \textit{admiration}, \textit{amusement}, \textit{approval}, \textit{caring}, \textit{desire}, \textit{excitement}, \textit{gratitude}, \textit{joy}, \textit{love}, \textit{optimism}, \textit{pride}, \textit{relief};
+ \item \(E^-\): \textit{anger}, \textit{annoyance}, \textit{disappointment}, \textit{disapproval}, \textit{disgust}, \textit{embarrassment}, \textit{fear}, \textit{grief}, \textit{nervousness}, \textit{remorse}, \textit{sadness}.
+\end{itemize}
+\textit{Neutral} é excluído.
+
+O \gls{limiaractivacao} \(\tau = 0{,}10\) é uma escolha operacional exploratória do estudo, mais permissiva do que um corte em \(0{,}5\): permite activar o sinal nos estímulos redigidos para ambivalência, sem pretender validar \(\tau\) como limiar óptimo de classificação. A sensibilidade a \(\tau\) fica como limitação e trabalho futuro.
+
+%----------------------------------------------------------------------------------------
+
+\section{Desenho experimental: condição \texorpdfstring{\(\times\)}{x} época}
+\label{sec:desenho}
+
+O estudo compara duas formas de gerar a resposta ao mesmo enunciado. A \gls{pipeline} corre nas duas condições. Nos identificadores e no CSV, a condição com sinal está codificada como \texttt{pipeline}; no texto, «pipeline» designa só o artefacto. Na \gls{baseline}, o gerador não recebe metadados de ambivalência. Na \gls{condicaopipeline}, recebe o par de emoções dominante positiva e negativa e a instrução de usar esse \gls{sinalcontextual} só como informação de fundo, sem o mencionar. O classificador e a regra de derivação permanecem fixos. O que muda é a presença ou ausência desse contexto no momento da geração.
+
+O segundo factor são quatro geradores âncora, de famílias distintas, justificados no Capítulo~\ref{chap:Chapter2}. Cada um ocupa uma \gls{epoca} do desenho (E1--E4). A época não é um ano isolado. É o par entre um \gls{marcohistorico} da literatura e o modelo público escolhido para o representar. E1, por exemplo, não é ``o ano 2019''. É o DialoGPT-medium no lugar que o factorial reserva a esse marco.
+
+\begin{center}
+\begin{tabular}{llp{6.5cm}}
+\hline
+ID & Época & Modelo Hugging Face \\
+\hline
+E1 & \(\sim\)2019--20 & \texttt{microsoft/DialoGPT-medium} \parencite{Zhang2020DialoGPT} \\
+E2 & \(\sim\)2020--21 & \texttt{facebook/blenderbot-400M-distill} \parencite{Roller2021BlenderBot} \\
+E3 & \(\sim\)2023--24 & \texttt{microsoft/Phi-3-mini-4k-instruct} \parencite{Abdin2024Phi3} \\
+E4 & \(\sim\)2024--25 & \texttt{Qwen/Qwen2.5-3B-Instruct} \parencite{Yang2025Qwen25} \\
+\hline
+\end{tabular}
+\end{center}
+
+O classificador permanece \texttt{SamLowe/roberta-base-go\_emotions}. Há uma resposta por \gls{celula}. A temperatura é nula nas 96 células avaliadas, mas a estratégia de descodificação difere no DialoGPT (\textit{beam search}) e o formato com que o sinal entra no \textit{prompt} também (Capítulo~\ref{chap:Chapter4}). As diferenças absolutas entre âncoras misturam, por isso, arquitectura, alinhamento, tamanho e formato de \textit{prompt}. A ``época'' funciona como rótulo histórico do marco, não como factor causal isolado.
+
+\subsection{Plano estatístico}
+\label{subsec:plano_estatistico}
+
+A unidade de observação é a classificação Likert de uma célula (estímulo \(\times\) época \(\times\) condição) por um participante. As classificações estão cruzadas em participante e em item. O item do modelo misto é a célula apresentada. A análise principal reportada no Capítulo~\ref{chap:Chapter5} usa o \gls{filtroestrito} (concluído, atenção correcta, sem ritmo demasiado rápido) e um modelo linear misto com efeitos aleatórios cruzados de participante e item \parencite{Baayen2008Mixed} (contrastes condição \(\times\) época). Médias, \(d\) de Cohen e testes \(t\) de Welch ao nível da classificação são descritivos/suplementares.
+
+%----------------------------------------------------------------------------------------
+
+\section{Materiais e preparação dos dados}
+\label{sec:materiais}
+
+Foram redigidos e revistos pelo autor 12 estímulos em inglês com ambivalência plausível (dúvida, orgulho com receio, esperança com frustração, etc.). Só ficaram os textos em que a pipeline confirma ambivalência com \(\tau = 0{,}10\). A Tabela~\ref{tab:estimulos} resume o tema do conflito e as emoções dominantes confirmadas pelo GoEmotions nos 12 estímulos retidos.
+
+\begin{table}[ht]
+\centering
+\caption{Estímulos do estudo: tema, emoções dominantes e índice \(A\).}
+\label{tab:estimulos}
+\footnotesize
+\begin{tabular}{clllp{4.8cm}}
+\hline
+ID & \(E^+\) & \(E^-\) & \(A\) & Tema do conflito \\
+\hline
+s01 & joy & fear & 0{,}40 & Promoção / medo de impostor \\
+s02 & joy & sadness & 0{,}33 & Casamento da irmã / solidão \\
+s03 & love & sadness & 0{,}14 & Cidade / stress da renda \\
+s04 & joy & fear & 0{,}25 & Maratona / lesão \\
+s05 & desire & nervousness & 0{,}15 & Nova relação / medo de magoar-se \\
+s06 & gratitude & embarrassment & 0{,}29 & Apoio parental / vergonha \\
+s07 & joy & nervousness & 0{,}17 & Tese submetida / fragilidade \\
+s08 & excitement & sadness & 0{,}18 & Mudança ao estrangeiro / partida \\
+s09 & admiration & annoyance & 0{,}25 & Colega confiante / interrupções \\
+s10 & optimism & fear & 0{,}37 & Resultados médicos / dread \\
+s11 & joy & sadness & 0{,}35 & Trabalho remoto / desconexão \\
+s12 & gratitude & remorse & 0{,}10 & Verdade dita / tom duro \\
+\hline
+\end{tabular}
+\end{table}
+
+Cada estímulo é um enunciado isolado do utilizador, sem histórico de diálogo. Os textos tornam a ambivalência explícita com conectores contrastivos (\textit{but}, \textit{yet}, \textit{although}, \textit{while}), por isso o estudo não testa se o modelo detecta ambivalência implícita. Testa se ainda há ganho em injectar no \textit{prompt} os rótulos derivados desse mesmo enunciado, quando a tensão já é legível no texto. A regra é reproduzível, mas há uma circularidade parcial, retomada na discussão, porque o mesmo classificador define o que conta como ambivalente e filtra os textos que entram no lote.
+
+Para cada estímulo \(\times\) modelo \(\times\) condição geram-se respostas, no total \(12 \times 4 \times 2 = 96\) células. Os artefactos usam identificadores opacos no questionário cego.
+
+%----------------------------------------------------------------------------------------
+
+\section{Estratégia de avaliação}
+\label{sec:avaliacao}
+
+A variável dependente principal é a \gls{empatiapercebida}, medida em escala \gls{likert} de sete pontos (1 = nada empática; 7 = extremamente empática). A escala 1--7 é deste desenho. O juízo humano de empatia em diálogo aberto e em apoio textual está estabelecido na literatura \parencite{Rashkin2019Empathy, Sharma2020Empathy}.
+
+Cada item do questionário apresenta o enunciado do utilizador e \textit{uma} resposta do assistente. O avaliador não conhece o modelo, a época nem a condição (baseline vs condição com sinal). A comparação entre condições não é solicitada na interface. O participante formula um juízo absoluto por resposta, e o contraste baseline versus condição com sinal é obtido \textit{a posteriori} na análise estatística, através das médias e do diferencial \(\Delta\) (Secção~\ref{sec:analise_etica}).
+
+Optou-se por esta forma de avaliação em vez de um juízo forçado lado a lado (mostrar as duas respostas ao mesmo estímulo e perguntar qual é mais empática). Para a hipótese do trabalho não basta saber se a \gls{condicaopipeline} ``ganha'', precisa-se do nível absoluto de empatia em cada âncora. Se, nos modelos recentes, as duas condições saírem altas e \(\Delta \approx 0\), isso só se lê bem com escala absoluta. Um desenho só pairwise daria preferências relativas e esconderia a diferença entre ``a \gls{baseline} já é empática'' e ``o sinal ainda acrescenta alguma coisa''.
+
+Há ameaças de validade associadas a Likert absolutas em sequência neste desenho: sem âncora partilhada do que é ``muito'' ou ``pouco'' empático, os primeiros itens podem calibrar mal, a fadiga e a ordem podem puxar as últimas notas, e cada pessoa lê empatia à sua maneira. Não se eliminam de todo, mas o procedimento mitiga: prática no início, rotação com ordem aleatória (incluindo separar no tempo pares baseline/condição com sinal do mesmo enunciado), verificação de atenção e vários participantes. Uma mistura de nota absoluta e escolha forçada daria mais sensibilidade relativa, mas também mais carga e sessão mais longa, pelo que, para esta pergunta, ficou a Likert cega por item.
+
+A decisão de não substituir os participantes por um modelo a julgar empatia também é deliberada. Comparações recentes entre juízes-\gls{llm} e especialistas humanos, em diálogo de saúde mental, encontram inflação sistemática nas notas automáticas e menor fiabilidade precisamente em dimensões afectivas como a empatia \parencite{Badawi2026MentalAlign}. O endpoint deste estudo é, por isso, o juízo humano cego.
+
+%----------------------------------------------------------------------------------------
+
+\section{Recrutamento e participantes}
+\label{sec:recrutamento}
+
+Os participantes são adultos (\(\ge 18\) anos). A amostra é de conveniência. O convite circulou online, por bola de neve, a partir da rede pessoal e académica do autor, incluindo o \gls{tmdei} e contactos próximos do \gls{isep}, e o link do questionário foi partilhado para divulgação junto de colegas e alunos. Não houve critério de selecção para além da idade e do consentimento. Não se recolhem dados demográficos (idade, sexo, nacionalidade ou nível linguístico), o que impede caracterizar a amostra para além do que o próprio instrumento regista: língua da sessão, estado de conclusão e volume de itens.
+
+Esta origem tem consequência para a leitura da empatia percebida. Quem chega por uma rede pessoal ou académica pode ser mais crítico, ou mais indulgente, face a respostas de modelos, e pode ter mais familiaridade com o tema do que um utilizador qualquer de chatbot. A amostragem não pretende representar a população geral, e descreve-se aqui para não deixar a ``conveniência'' aparecer só nas limitações.
+
+A Tabela~\ref{tab:funil_abandono} resume o funil. Iniciaram o estudo 156 pessoas (pelo menos uma classificação). Concluíram 63 (cerca de \(40{,}4\%\)) e 93 ficaram em curso (\(59{,}6\%\) de abandono antes da conclusão). Destes 63, 56 acertaram o item de atenção, quatro foram marcados com ritmo demasiado rápido e a análise principal retém 52 participantes e 2016 classificações. Destes 52, 46 usaram português (1770 classificações) e 6 inglês (246).
+
+\begin{table}[ht]
+\centering
+\caption{Funil da recolha humana.}
+\label{tab:funil_abandono}
+\begin{tabular}{lc}
+\hline
+Indicador & Valor \\
+\hline
+Participantes iniciados (\(\ge 1\) classificação) & 156 \\
+Em curso (não concluíram) & 93 \\
+Concluídos & 63 \\
+Atenção correcta & 56 \\
+Ritmo demasiado rápido (entre os de atenção correcta) & 4 \\
+Análise principal (filtro estrito) & 52 \\
+Classificações Likert na análise principal & 2016 \\
+\hline
+\end{tabular}
+\end{table}
+
+O abandono é sobretudo precoce. Nos 93 em curso, a mediana do número de itens com ordem registada é zero, a maior parte sai na prática ou no primeiro ecrã, antes de completar o bloco mínimo. Vinte e quatro pessoas classificam entre um e cinco itens e param. Quem conclui faz, no mínimo, as 24 células do bloco. Não se dispõe de demografia para testar se completadores e desistentes diferem em idade, formação ou familiaridade com \glspl{llm}. O viés de selecção por abandono (\textit{attrition bias}) não invalida as classificações de quem ficou, apenas limita a generalização. Quem aceita avaliar cerca de duas dezenas de respostas emocionalmente densas pode ter mais paciência, mais interesse no tema, ou outra tolerância à tarefa, perfil que não se observa nos que saem cedo.
+
+Cada classificação é gravada de imediato. Se a pessoa abandona a meio, os juízos já submetidos permanecem na base, associados a um identificador interno, sem demografia. Não se recontacta quem desistiu. O detalhe da implementação, incluindo o critério de ritmo demasiado rápido e a exportação em português, consta do Capítulo~\ref{chap:Chapter4} e os dados da análise principal estão reportados no Capítulo~\ref{chap:Chapter5}.
+
+%----------------------------------------------------------------------------------------
+
+\section{Procedimento experimental}
+\label{sec:procedimento}
+
+O estudo usa um desenho \gls{within} com cegagem, cada participante avalia cerca de 24 itens (mínimo), com rotação incompleta para cobrir as 96 células no conjunto. Depois do mínimo, pode continuar com mais itens do catálogo, vê quantos faltam e pode parar quando quiser. Pares baseline/condição com sinal do mesmo enunciado (e, quando faz sentido, da mesma época) aparecem em ordem aleatória, sem rótulos. Assim a pessoa pode ver as duas condições na sessão sem as comparar no mesmo ecrã.
+
+A recolha decorreu online num questionário desenvolvido para este estudo, com consentimento informado e verificação de atenção no final da sessão. A interface está disponível em português e em inglês.
+
+\subsection{Critérios de inclusão na análise}
+\label{subsec:criterios_inclusao}
+
+Definem-se três recortes:
+\begin{itemize}
+ \item \gls{filtroestrito} (principal): concluído, atenção = Sim, sem ritmo demasiado rápido;
+ \item \textit{atenção}: atenção = Sim (inclui os quatro participantes de ritmo rápido);
+ \item \textit{todos}: todas as classificações com item e pontuação.
+\end{itemize}
+O Capítulo~\ref{chap:Chapter5} reporta o estrito como análise principal e os outros dois como sensibilidade.
+
+%----------------------------------------------------------------------------------------
+
+\section{Análise estatística e considerações éticas}
+\label{sec:analise_etica}
+
+Para cada época, reportam-se médias e o \gls{delta} \(\Delta = \overline{\text{pipeline}} - \overline{\text{baseline}}\), com \(d\) de Cohen e testes \(t\) de Welch ao nível da classificação como descrição suplementar. A inferência principal é o modelo misto cruzado de participante e item \parencite{Baayen2008Mixed}, detalhado na Secção~\ref{subsec:plano_estatistico}.
+
+A figura analítica central situa \(\Delta\) no eixo das épocas (E1--E4). Como antecipado na Secção~\ref{sec:consideracoes_eticas}, o estudo não recolhe dados demográficos nem outros dados sensíveis, a participação é voluntária, com consentimento, e os dados de classificação são analisados de forma agregada e anonimizada. As classificações anonimizadas e os artefactos de geração ficam no repositório público do estudo por tempo indeterminado, e a base operacional do questionário permanece sob controlo do autor até ao fim do ciclo de defesa e é depois eliminada.
+
+%----------------------------------------------------------------------------------------

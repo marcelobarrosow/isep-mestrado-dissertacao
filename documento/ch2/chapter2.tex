@@ -1,0 +1,212 @@
+% Chapter 2
+% Estado da Arte
+
+\chapter{Estado da Arte}
+\label{chap:Chapter2}
+
+Este capítulo apresenta o estado da arte que enquadra a presente investigação, articulando a evolução do \gls{pln} com a análise emocional em texto e o seu papel em sistemas conversacionais. Inicia-se com uma caracterização da linguagem natural enquanto objecto de modelação computacional e da evolução das abordagens clássicas para arquitecturas modernas baseadas em atenção. Seguidamente, discute-se a expressão emocional na linguagem e as principais abordagens de \gls{analiseemocional}, destacando limitações estruturais na representação de emoções múltiplas. Introduzem-se os conceitos de \gls{ambivalenciaemocional} e \gls{empatiacomputacional}, sintetizam-se marcos históricos que justificam a selecção de modelos geradores âncora e identifica-se a lacuna de investigação abordada neste trabalho.
+
+%----------------------------------------------------------------------------------------
+
+\section{Abordagem à revisão da literatura}
+\label{sec:abordagem_revisao}
+
+A revisão da literatura apresentada neste capítulo assume um carácter clássico e narrativo, tendo como objectivo enquadrar teoricamente o problema de investigação e fundamentar as escolhas conceptuais do trabalho. Em vez de uma revisão sistemática formal, privilegiou-se a selecção de estudos relevantes e representativos, com base na sua pertinência temática, impacto e contributo para os tópicos centrais da dissertação.
+
+A pesquisa bibliográfica foi conduzida maioritariamente em língua inglesa, recorrendo a bases de dados e repositórios como \gls{acl} Anthology, arXiv (categorias cs.CL e cs.AI), \gls{ieee} Xplore e Google Scholar. A selecção dos trabalhos não foi limitada por um intervalo temporal rígido, tendo sido incluídos tanto estudos recentes, por reflectirem o estado actual das abordagens em \gls{pln} e análise emocional, como referências fundacionais consideradas necessárias para enquadrar a evolução das arquitecturas e conceitos discutidos.
+
+As principais palavras-chave utilizadas incluíram, entre outras, \textit{emotion analysis}, \textit{emotion detection}, \textit{multi-label emotion classification}, \textit{emotion co-occurrence}, \textit{ambivalent emotions}, \textit{mixed emotions}, \textit{empathetic dialogue} e \textit{emotion-aware conversational systems}. Complementarmente, foi aplicada pesquisa por encadeamento de citações (\textit{backward} e \textit{forward citation chasing}) a partir dos trabalhos mais relevantes, de modo a identificar literatura adicional com contributo directo para os tópicos abordados.
+
+%----------------------------------------------------------------------------------------
+
+\section{Linguagem natural como objecto de modelação computacional}
+\label{sec:linguagem_natural}
+
+A evolução do \gls{pln} tem sido marcada por mudanças paradigmáticas sucessivas, impulsionadas pelo aumento da capacidade computacional e pela disponibilidade de grandes volumes de dados. Revisões abrangentes da área descrevem esta trajectória desde abordagens simbólicas e estatísticas, centradas em regras explícitas e modelos probabilísticos, até à adopção generalizada de modelos de aprendizagem profunda, que passaram a dominar a maioria das tarefas centrais do \gls{pln} \parencite{Young2018Trends}.
+
+Esta secção introduz a linguagem natural enquanto objecto de modelação computacional, enquadrando os principais desafios inerentes à sua complexidade, ambiguidade e dependência contextual. Apresenta-se, de forma progressiva, a evolução das abordagens em \gls{pln}, desde métodos clássicos baseados em regras e modelos estatísticos até às representações distribuídas e às arquitecturas modernas baseadas em atenção, que sustentam os actuais modelos de linguagem de grande escala. Este enquadramento estabelece a base conceptual necessária para compreender, nas secções seguintes, como a dimensão emocional pode ser incorporada (ou negligenciada) na modelação computacional do texto.
+
+\subsection{Definição e complexidade da linguagem natural}
+\label{subsec:def_linguagem}
+
+A linguagem natural integra estrutura formal, significado semântico, contexto pragmático e intenções implícitas. Para além da transmissão de informação factual, funciona como veículo de expressão emocional \parencite{Wiebe2005Opinions, MohammadTurney2013Lexicon}. Esta multiplicidade de funções torna a sua modelação computacional um desafio exigente, exigindo abstrações que conciliem rigor formal e flexibilidade interpretativa.
+
+No âmbito da Engenharia Informática, o \gls{pln} tem como objectivo desenvolver métodos computacionais capazes de analisar, interpretar e gerar linguagem humana de forma automática. Esta tarefa implica transformar um fenómeno essencialmente contínuo, ambíguo e dependente de contexto em representações manipuláveis por sistemas formais. Ao longo das últimas décadas, esta tensão entre a riqueza expressiva da linguagem e as limitações dos modelos computacionais tem moldado a evolução do \gls{pln} enquanto disciplina científica.
+
+A complexidade da linguagem natural manifesta-se, entre outros aspectos, na ambiguidade lexical, na polissemia, na dependência do contexto discursivo e na presença de informação implícita ou não literal. Estas características tornaram as abordagens puramente simbólicas frágeis e conduziram à adopção de modelos probabilísticos e, mais recentemente, de arquitecturas de aprendizagem profunda capazes de aprender padrões linguísticos a partir de grandes volumes de dados textuais \parencite{Manning2011NLP, Young2018Trends}.
+
+\subsection{Abordagens clássicas em Processamento de Linguagem Natural}
+\label{subsec:pln_classico}
+
+As primeiras abordagens em \gls{pln} baseavam-se em regras e sistemas simbólicos (gramáticas formais, léxicos controlados), úteis em domínios restritos mas frágeis perante ambiguidade e contexto \parencite{Manning2011NLP}. A transição para modelos estatísticos (n-gramas, \gls{hmm}, classificadores supervisionados) aumentou a robustez, à custa de engenharia manual de características e de fraca captura de relações semânticas profundas \parencite{Manning2011NLP, Young2018Trends}. Essas limitações motivaram a passagem a modelos neuronais e às representações distribuídas discutidas a seguir \parencite{Young2018Trends}.
+
+\subsection{Representações distribuídas e contextualização do significado}
+\label{subsec:representacoes}
+
+As \textit{word embeddings} mapearam palavras para espaços vectoriais contínuos aprendidos a partir de grandes conjuntos de textos usados no treino, capturando regularidades semânticas e sintácticas com uma representação estática por palavra \parencite{Young2018Trends}. Modelos contextualizados como o ELMo passaram a produzir vectores dependentes da frase \parencite{Peters2018ELMo}. Apesar desses avanços, a dimensão afectiva permanecia frequentemente tratada à parte das representações semânticas gerais, e a literatura pedia embeddings mais ricas em informação afectiva \parencite{BuechelEtAl2021Embeddings, PlazaDelArco2024Trends, Seyeditabari2018Review}.
+
+\subsection{Modelos transformer e grandes modelos de linguagem}
+\label{subsec:transformers}
+
+A introdução das arquitecturas baseadas em mecanismos de atenção, em particular os modelos do tipo \textit{transformer}, representou uma mudança paradigmática no Processamento de Linguagem Natural. Ao permitir a análise simultânea de todas as unidades de uma sequência textual, os transformers tornaram possível a modelação eficiente de dependências de longo alcance, superando limitações estruturais de modelos sequenciais tradicionais \parencite{Vaswani2017Attention}.
+
+Com base nesta arquitectura, surgiram modelos pré-treinados de larga escala, como o \gls{bert}, que exploram estratégias de aprendizagem auto-supervisionada sobre grandes conjuntos de textos a partir dos quais o modelo aprende sem um rótulo humano por frase. Estes modelos passaram a representar contexto, desambiguar significados e generalizar para múltiplas tarefas de \gls{pln}, incluindo tradução automática, sumarização, resposta a perguntas e sistemas conversacionais \parencite{Devlin2019BERT}.
+
+Apesar do seu elevado desempenho linguístico, os grandes modelos de linguagem tratam a emoção como tarefa ou camada à parte das representações semânticas gerais, e não como núcleo da arquitectura \parencite{PlazaDelArco2024Trends, Seyeditabari2018Review}.
+
+A questão que interessa a este trabalho é outra: até que ponto as arquitecturas modernas de \gls{pln} representam bem as dimensões emocionais que importam para a interacção humano-máquina?
+
+%----------------------------------------------------------------------------------------
+
+\section{Expressão emocional na linguagem natural}
+\label{sec:expressao_emocional}
+
+A linguagem natural não se limita à transmissão de conteúdo informativo ou factual: desempenha igualmente um papel central na expressão de estados emocionais, atitudes e intenções comunicativas no discurso \parencite{Wiebe2005Opinions}. A dimensão emocional da linguagem constitui um elemento estrutural da comunicação, e não um mero acessório expressivo.
+
+Do ponto de vista linguístico, a emoção no texto passa por escolhas lexicais e por outros dispositivos discursivos. A enumeração de dispositivos lexicais é deste capítulo, distinta do esquema de anotação de Wiebe. A \gls{emocaoexpressa} não coincide necessariamente, de forma directa ou completa, com o estado emocional interno, sendo antes uma representação comunicável desse estado, mediada pela linguagem \parencite{Wiebe2005Opinions}. Unidades lexicais associam-se a categorias ou dimensões emocionais \parencite{MohammadTurney2013Lexicon}.
+
+Esta distinção é particularmente relevante para a modelação computacional da linguagem. Sistemas de \gls{pln} não têm acesso ao estado psicológico do utilizador, operando exclusivamente sobre o texto produzido. Consequentemente, qualquer abordagem computacional à \gls{analiseemocional} deve centrar-se na emoção enquanto fenómeno linguístico observável, e não enquanto experiência subjectiva interna. Esta perspectiva permite enquadrar a emoção como um padrão detectável no discurso, passível de ser modelado através de regularidades estatísticas e semânticas, como demonstrado em trabalhos que associam unidades lexicais a categorias ou dimensões emocionais \parencite{MohammadTurney2013Lexicon}.
+
+A relevância da expressão emocional na linguagem torna-se evidente quando se considera o seu impacto na interpretação do significado. Por exemplo, expressões de dúvida, frustração ou ambiguidade emocional podem alterar a intenção percebida de um enunciado e exigir respostas diferenciadas. A resposta empática em diálogo aberto depende de reconhecer a emoção expressa \parencite{Rashkin2019Empathy}. Ignorar esta dimensão pode conduzir a interpretações incompletas, particularmente em contextos de interacção sensível.
+
+No contexto da interacção humano-máquina, a incapacidade de reconhecer e interpretar correctamente a expressão emocional compromete a qualidade da resposta gerada pelo sistema. Erros de reconhecimento propagam-se para respostas semanticamente correctas mas desadequadas ou genéricas \parencite{Huangfu2025NEC}. A empatia percebida em diálogo e em apoio textual depende dessa leitura \parencite{Rashkin2019Empathy, Sharma2020Empathy}. Assim, a \gls{analiseemocional} em linguagem natural surge não apenas como um problema de classificação, mas como um componente da construção de interacções mais naturais e eficazes.
+
+Deste modo, a expressão emocional na linguagem estabelece-se como uma ponte entre a dimensão técnica da modelação textual e a experiência humana subjacente à comunicação. Reconhecer a emoção enquanto elemento linguístico observável abre caminho para a sua integração em modelos computacionais, ainda que tal integração exija escolhas conceptuais e metodológicas cuidadosas, nomeadamente no que respeita à forma como a emoção é representada, medida e avaliada \parencite{BuechelHahn2016Regression, MohammadTurney2013Lexicon}.
+
+%----------------------------------------------------------------------------------------
+
+\section[Análise emocional em Processamento de Linguagem Natural]%
+{Análise emocional em Processamento de\\ 
+Linguagem Natural}
+\label{sec:analise_emocional}
+
+A \gls{analiseemocional} em \gls{pln} tem como objectivo identificar e categorizar estados afectivos expressos em texto, recorrendo a técnicas computacionais capazes de extrair padrões linguísticos relevantes. Este domínio emergiu como uma extensão das tarefas de análise semântica, motivado pela necessidade de compreender não apenas o que é dito, mas como é dito, em contextos como redes sociais e diálogo \parencite{Tan2023Survey, PlazaDelArco2024Trends}.
+
+Uma linha persistente de trabalho classifica textos pela polaridade, como positivos, negativos ou neutros \parencite{Tan2023Survey}. Esta simplificação permitiu aplicabilidade e desempenho computacional, mas é insuficiente para capturar a diversidade das emoções humanas expressas na linguagem \parencite{Seyeditabari2018Review}. Ainda assim, a análise de polaridade permanece amplamente utilizada, servindo frequentemente como base para sistemas mais complexos \parencite{Tan2023Survey}.
+
+Com o reconhecimento das limitações inerentes à polaridade simples, surgiram modelos orientados para a identificação de emoções discretas, inspirados em taxonomias como as de Ekman e Plutchik \parencite{Seyeditabari2018Review, PlazaDelArco2024Trends}. Estas abordagens mapeiam textos para um conjunto finito de categorias emocionais, como alegria, tristeza, raiva ou medo, permitindo uma representação mais rica do conteúdo afectivo. No entanto, tais modelos introduzem o pressuposto de que uma emoção pode ser isolada de forma clara num determinado enunciado, o que nem sempre reflecte a complexidade da expressão emocional \parencite{PlazaDelArco2024Trends}.
+
+O avanço das técnicas de aprendizagem profunda possibilitou a adopção de abordagens de \gls{classificacaomultilabel}, nas quais um mesmo texto pode ser associado a múltiplas emoções simultaneamente. GoEmotions, um conjunto de comentários do Reddit anotado com várias emoções por comentário, exemplifica esta linha: a expressão emocional não é necessariamente exclusiva ou unitária \parencite{Demszky2020GoEmotions}.
+
+Paralelamente, foram desenvolvidos diversos datasets anotados com dimensões emocionais, os quais desempenham um papel central na avaliação e comparação de abordagens. Estes recursos variam em granularidade, nomenclatura e critérios de anotação, e os dados emocionais permanecem mais escassos do que os de sentimento \parencite{PlazaDelArco2024Trends, Seyeditabari2018Review}. Essa diversidade reflecte a ausência de consenso sobre a melhor forma de representar computacionalmente a emoção em texto.
+
+Apesar dos avanços técnicos alcançados, as abordagens de \gls{analiseemocional} em \gls{pln} assentam frequentemente em categorias discretas ou em conjuntos independentes de rótulos \parencite{PlazaDelArco2024Trends, Seyeditabari2018Review}. Mesmo nos modelos de \gls{classificacaomultilabel}, a coocorrência emocional é tratada como uma soma de estados afectivos, sem modelação explícita das relações ou tensões entre emoções \parencite{Singh2026MultiEmotionIntensity, Zhao2026MEGE}. Esta simplificação limita a capacidade dos sistemas em interpretar expressões emocionalmente complexas, especialmente em contextos de ambiguidade ou conflito interno.
+
+%----------------------------------------------------------------------------------------
+
+\section{Limitações das abordagens actuais de análise emocional}
+\label{sec:limitacoes}
+
+Apesar dos progressos registados na \gls{analiseemocional} em \gls{pln}, as abordagens actuais apresentam limitações conceptuais e metodológicas. Estas limitações não se prendem exclusivamente com o desempenho dos modelos ou com restrições computacionais, mas decorrem, em grande medida, dos pressupostos subjacentes à forma como a emoção é definida e representada no contexto computacional: as técnicas disponíveis permanecem insuficientes e as categorias discretas continuam a dominar \parencite{Seyeditabari2018Review, PlazaDelArco2024Trends}.
+
+Uma das limitações mais recorrentes reside na tendência para reduzir a expressão emocional a um conjunto limitado de categorias \parencite{PlazaDelArco2024Trends}. Mesmo em abordagens de \gls{classificacaomultilabel}, a presença simultânea de múltiplas emoções é tratada como coocorrência de rótulos, sem modelação das relações internas entre eles \parencite{Singh2026MultiEmotionIntensity, Zhao2026MEGE}. Emoções podem coexistir de forma contraditória, complementar ou hierárquica no discurso, e essa estrutura não entra na representação.
+
+Outra limitação significativa diz respeito à suposição implícita de uma emoção dominante por enunciado. Sistemas anteriores assumem frequentemente uma emoção dominante \parencite{Singh2026MultiEmotionIntensity}, e na \gls{geracaocondicionada}, como na \gls{ecm}, o controlo opera sobre uma categoria de cada vez \parencite{Zhou2018ECM}. Esta abordagem conduz à perda de nuances emocionais relevantes, particularmente em textos que expressam hesitação, conflito interno ou ambiguidade afectiva.
+
+Os modelos também não incorporam mecanismos explícitos para lidar com contradições emocionais expressas linguisticamente. Linguagem implícita e metafórica continua mal coberta pelas técnicas disponíveis, e categorias pré-definidas encaixam mal em expressões emocionalmente ricas \parencite{Seyeditabari2018Review, PlazaDelArco2024Trends}. Contrastes semânticos, negações afectivas ou mudanças de tom ao longo do discurso podem, assim, ser mal interpretados ou simplificados em excesso.
+
+Estas limitações tornam-se particularmente evidentes em sistemas conversacionais, nos quais a análise emocional influencia directamente a adequação da resposta gerada. Erros de reconhecimento emocional propagam-se para respostas inadequadas ou genéricas \parencite{Huangfu2025NEC}. A empatia percebida em diálogo aberto e em apoio textual depende de interpretar a expressão emocional de forma adequada \parencite{Rashkin2019Empathy, Sharma2020Empathy}.
+
+Estas fragilidades não são só falhas de implementação: apontam para uma lacuna na forma de conceptualizar a emoção enquanto fenómeno computacional \parencite{PlazaDelArco2024Trends, Seyeditabari2018Review}. Ao tratar a emoção como rótulos independentes e estáticos, os modelos afastam-se da natureza dinâmica e, por vezes, contraditória da experiência humana. Neste trabalho, a representação da emoção em texto abre espaço para coexistência e interacção entre estados afectivos.
+
+%----------------------------------------------------------------------------------------
+
+\section{Ambivalência emocional na linguagem escrita}
+\label{sec:ambivalencia}
+
+A \gls{ambivalenciaemocional} refere-se à coexistência de estados afectivos distintos e, por vezes, contraditórios, no mesmo enunciado. A literatura reconhece e modela a coexistência de emoções mistas no discurso \parencite{Wiebe2005Opinions, Zhao2026MEGE, Singh2026MultiEmotionIntensity}; neste trabalho, a ambivalência é definida de forma mais restrita, exigindo valências opostas no mesmo enunciado.
+
+Na linguagem escrita, a ambivalência manifesta-se em enunciados que combinam sinais afectivos divergentes. Expressões de apreço acompanhadas de frustração, ou de esperança coexistindo com receio, servem aqui apenas como exemplos. Estas manifestações não correspondem a uma simples alternância emocional, mas a uma sobreposição de estados afectivos que contribuem conjuntamente para o significado do enunciado. A interpretação adequada desse tipo de discurso exige a consideração simultânea de múltiplas dimensões emocionais: estados privados e avaliações no discurso \parencite{Wiebe2005Opinions} e atitudes mistas reconhecíveis no enunciado \parencite{Neviarouskaya2010Affect}.
+
+Do ponto de vista linguístico, contrastes semânticos, construções adversativas, negações afectivas, marcadores discursivos e intensificadores podem, na leitura deste trabalho, sinalizar tensões internas no discurso. Esses dispositivos não constituem, por si, uma teoria linguística da ambivalência. O que a literatura computacional já reconhece é a existência de atitudes e afectos mistos em texto \parencite{Neviarouskaya2010Affect}, ao passo que os modelos de uma só emoção deixam essa estrutura de fora \parencite{Singh2026MultiEmotionIntensity, PlazaDelArco2024Trends}. A ambivalência pode constituir, assim, um padrão observável no discurso, e não necessariamente uma anomalia ou erro comunicativo.
+
+A relevância da \gls{ambivalenciaemocional} torna-se particularmente evidente quando se considera a interpretação pragmática do discurso. Enunciados emocionalmente ambivalentes pedem respostas que reconheçam essa complexidade, evitando leituras que privilegiem apenas um dos estados afectivos expressos. Em interacções humanas, a validação emocional e a empatia percebida em diálogo e em apoio textual dependem de reconhecer o que a pessoa expressou \parencite{Son2026EmotionalValidation, Sharma2020Empathy, Rashkin2019Empathy}. Esses trabalhos fundamentam essa relação; o nexo específico entre ambivalência e empatia é a hipótese testada nesta dissertação.
+
+No contexto da modelação computacional da linguagem, a \gls{ambivalenciaemocional} é difícil de representar. As abordagens dominantes de \gls{analiseemocional} em \gls{pln} não representam explicitamente a ambivalência, e tratam a coocorrência como rótulos independentes ou como uma emoção dominante \parencite{PlazaDelArco2024Trends, Seyeditabari2018Review, Zhao2026MEGE, Singh2026MultiEmotionIntensity}. Mesmo abordagens mais recentes, que procuram abstrair rótulos emocionais específicos através de embeddings contínuos, reconhecem dificuldades na representação de relações emocionais complexas e não discretas \parencite{BuechelEtAl2021Embeddings}.
+
+Essa tendência começa, contudo, a ser contestada por propostas que tratam emoções mistas como objecto próprio de modelação. O modelo \gls{mege}, por exemplo, representa emoções mistas ao longo do diálogo através de múltiplos canais e funde essa informação na geração empática \parencite{Zhao2026MEGE}. A literatura deixa de assumir, de forma exclusiva, que um único rótulo basta para descrever o estado emocional de um enunciado.
+
+Estas limitações tornam-se relevantes em sistemas conversacionais, nos quais a interpretação emocional informa a geração de respostas \parencite{Rashkin2019Empathy, Zhou2018ECM}. Trabalhos que modelam emoções mistas argumentam que ignorar a coexistência afectiva empobrece a adequação da resposta \parencite{Zhao2026MEGE, Wan2025EmoDynamiX, Singh2026MultiEmotionIntensity}, e erros de reconhecimento podem propagar-se para respostas inadequadas ou genéricas \parencite{Huangfu2025NEC}. A ambivalência deixa, assim, de ser só um desafio teórico e passa a ser, neste trabalho, uma dimensão a considerar na \gls{empatiapercebida}.
+
+Torna-se, no entanto, necessário evitar o pressuposto inverso, o de que tornar a emoção mais explícita melhora automaticamente a resposta. Abordagens não centradas na emoção reconhecida, como o \gls{nec}, argumentam que erros de classificação se propagam para a geração e que o rótulo inferido pode até entrar em conflito com informação presente no histórico do diálogo, produzindo respostas genéricas ou menos informativas \parencite{Huangfu2025NEC}. Esta tensão é central para o resto da dissertação: explicitar afecto pode ajudar, mas o seu valor depende da representação escolhida e do gerador que a recebe.
+
+%----------------------------------------------------------------------------------------
+
+\section{Empatia computacional em sistemas conversacionais}
+\label{sec:empatia}
+
+A \gls{empatiacomputacional} tem sido estudada em diálogo aberto através de \textit{benchmarks} como EmpatheticDialogues: o sistema reconhece sinais emocionais no enunciado do utilizador e responde de maneira adequada ao contexto afectivo percebido \parencite{Rashkin2019Empathy}. De forma geral, este conceito refere-se a essa capacidade de reconhecimento e resposta, contribuindo para uma experiência de interacção mais natural.
+
+Nos sistemas artificiais, a empatia não é uma experiência emocional genuína, mas um comportamento comunicativo funcional. A \gls{empatiacomputacional} avalia-se pela percepção do utilizador na interacção, não pela ``intenção'' do sistema, e a empatia expressa no texto pode ainda diferir da percebida \parencite{Sharma2020Empathy}.
+
+Em sistemas conversacionais, a \gls{analiseemocional} informa a \gls{empatiacomputacional}, porque a empatia percebida depende de reconhecer a emoção expressa \parencite{Rashkin2019Empathy}. Quando essa identificação é incompleta ou enviesada, erros de reconhecimento propagam-se para respostas semanticamente correctas mas inadequadas, genéricas ou contraproducentes \parencite{Huangfu2025NEC}.
+
+Diversos trabalhos têm explorado estratégias para integrar empatia em chatbots, recorrendo a modelos emocionais, regras heurísticas ou mecanismos de \gls{geracaocondicionada}. Abordagens baseadas em geração emocionalmente condicionada, por exemplo, procuram ajustar a resposta do sistema em função de estados afectivos inferidos, utilizando arquitecturas como a \gls{ecm} para controlar o tom emocional do diálogo \parencite{Zhou2018ECM}. No entanto, muitas dessas abordagens continuam a basear-se em representações simplificadas da emoção, assumindo estados afectivos unitários ou relativamente estáveis, como no ECM ou em benchmarks com um rótulo por diálogo \parencite{Zhou2018ECM, Rashkin2019Empathy, PlazaDelArco2024Trends, Singh2026MultiEmotionIntensity}.
+
+Uma linha de investigação recente desloca o foco de ``qual emoção?'' para ``por que razão essa emoção?''. Em \textit{Reasoning before Responding}, o sistema é incentivado a raciocinar sobre desejos, reacções, intenções e causalidade, tanto na perspectiva do utilizador como na do próprio agente, antes de formular a resposta \parencite{Fu2023ReasoningBeforeResponding}. A distinção é conceptualmente útil: identificar um rótulo afectivo não equivale a interpretar a situação emocional que o motiva.
+
+Na mesma direcção, propostas centradas na causa criticam a dependência excessiva do rótulo emocional isolado e incorporam raciocínio sobre a causa da emoção antes da geração, tipicamente através de afinação com raciocínio passo a passo \parencite{Chen2024CauseAware}. Dois enunciados classificados como \textit{fear}, por exemplo, podem exigir respostas muito diferentes consoante o motivo desse medo, e comprimir ambos no mesmo rótulo é, nesse sentido, uma aproximação pobre.
+
+Essa mudança chega também à construção de dados. O conjunto de conversas ECC anota relações entre emoção e causa, partindo do argumento de que datasets centrados apenas em rótulos emocionais não representam adequadamente o que desencadeia o estado afectivo \parencite{He2025ECC}. A literatura começa a tratar a causa como dimensão anotável, não só como detalhe narrativo.
+
+Para além da causa, importa a função comunicativa desejada. Um sistema pode reconhecer correctamente medo ou tristeza e, ainda assim, responder mal porque tenta resolver um problema quando o utilizador precisava sobretudo de validação emocional. Trabalhos recentes sobre \textit{emotional validation} colocam precisamente essa etapa no centro do suporte empático \parencite{Son2026EmotionalValidation}. A ambivalência, nessa lista, é o objecto desta dissertação, e não um caso já tratado por essa literatura.
+
+Frameworks como o IntentionESC formalizam essa intuição, analisam componentes do estado emocional, inferem a intenção de suporte e só então escolhem estratégias adequadas, argumentando que uma intenção mal compreendida pode levar o sistema a impor soluções ou expectativas desajustadas \parencite{Zhang2025IntentionESC}. A sequência análise \(\rightarrow\) intenção/necessidade \(\rightarrow\) estratégia \(\rightarrow\) resposta torna-se, assim, uma alternativa explícita ao atalho emoção \(\rightarrow\) geração.
+
+EmoDynamiX leva o argumento ao nível da estratégia discursiva e, ao mesmo tempo, reincorpora emoções mistas: separa a previsão da estratégia da geração textual e modela a dinâmica entre emoções finas do utilizador e movimentos do sistema, alertando para vieses no planeamento implícito dos \glspl{llm} \parencite{Wan2025EmoDynamiX}. É um dos elos mais próximos entre os dois eixos desta dissertação, ambivalência e decisão intermédia.
+
+Propostas como \gls{strideed} fecham esta sequência ao tratar o diálogo empático como processo cognitivo e decisório multiestágio, com raciocínio estruturado condicionado por estratégias \parencite{Ji2026STRIDEED}. Estes trabalhos afastam-se do atalho directo de emoção para geração e introduzem representações ou decisões intermédias \parencite{Fu2023ReasoningBeforeResponding, Chen2024CauseAware, Zhang2025IntentionESC, Ji2026STRIDEED}.
+
+Esta simplificação, a de reduzir o estado afectivo a rótulos unitários ou estáveis, limita a capacidade do sistema em lidar com enunciados que expressam conflito interno, hesitação ou emoções contraditórias. Trabalhos sobre emoções mistas mostram que essa coexistência entra na geração \parencite{Zhao2026MEGE, Wan2025EmoDynamiX}. Quando um sistema ignora ou reduz a complexidade emocional do enunciado, tende a responder apenas a uma das dimensões afectivas expressas. Em apoio textual, a falta de compreensão ou de validação reduz a qualidade da interacção \parencite{Sharma2020Empathy}.
+
+Neste sentido, a \gls{empatiacomputacional} não pode ser dissociada da forma como a emoção é conceptualizada nos modelos subjacentes \parencite{Sharma2020Empathy, Rashkin2019Empathy}. Reconhecer emoções coexistentes, e não só um rótulo dominante, é um ponto que a literatura recente começa a explicitar \parencite{Zhao2026MEGE, Wan2025EmoDynamiX}. Sem essa capacidade, a empatia fica limitada a cenários emocionalmente mais simples.
+
+Além de compreender o estado afectivo do enunciado, a literatura recente insiste em compreender \textit{quem} é o utilizador. O \gls{pal}, por exemplo, infere dinamicamente uma persona a partir do histórico e combina essa informação com estratégias de geração para personalizar o suporte emocional \parencite{Cheng2023PAL}. A empatia deixa, assim, de depender apenas da emoção detectada no enunciado corrente.
+
+Em \glspl{llm}, essa linha actualiza-se no diagnóstico de que os modelos já produzem empatia genérica com alguma fluência, mas falham frequentemente em alinhar a resposta às preferências implícitas da pessoa, personalidade, situação específica, estado emocional e refinamentos por autorreflexão \parencite{Ye2025GenericPersonalized}. O gargalo desloca-se, em muitos cenários, de ``gerar empatia'' para ``gerar empatia individualizada''.
+
+Estudos sobre o impacto de personas em conversas de suporte emocional sintetizadas por \glspl{llm} mostram, ainda, que traços de persona alteram a distribuição das estratégias e podem melhorar relevância e qualidade empática \parencite{Wu2025PersonasToTalks}. Os mesmos estudos observam, ao mesmo tempo, pequenos deslocamentos nos traços manifestados ao longo da conversa. Perfis de utilizador não devem, portanto, ser tratados como essências fixas, ponto que importa já para qualquer hipótese longitudinal de personalização.
+
+A análise da empatia computacional evidencia uma ligação directa entre limitações conceptuais na modelação emocional, do rótulo isolado à causa, à estratégia e ao perfil, e falhas práticas na interacção humano-máquina. Não basta perguntar se a emoção foi detectada: importa perguntar que representação afectiva se injecta, em que gerador, e com que informação em falta no enunciado.
+
+%----------------------------------------------------------------------------------------
+
+\section{Marcos históricos e âncoras de modelos geradores}
+\label{sec:marcos_historicos}
+
+A evolução revista neste capítulo não é apenas conceptual: materializa-se em gerações sucessivas de modelos de geração conversacional, cujo comportamento empático nas respostas não é uniforme \parencite{Rashkin2019Empathy, Ou2024DialogBench, Welivita2026HumansOrLLMs}. Para tornar essa trajectória operacionalizável no estudo empírico, destacam-se quatro \glspl{marcohistorico} que justificam a selecção de \glspl{geradorancora} públicos. Cada marco corresponde, no desenho empírico, a uma \gls{epoca} (E1--E4) ocupada por um gerador âncora: o marco justifica a escolha, a época é o factor, a âncora é o modelo. Esses modelos são carregáveis em Python pela biblioteca Hugging Face Transformers, o que permite reproduzir o arranque experimental sem \glspl{api} proprietárias \parencite{Wolf2020Transformers}.
+
+O primeiro marco (\(\sim\)2019--2020; época E1) corresponde à consolidação do diálogo \textit{open-domain} e dos \textit{benchmarks} de empatia em diálogo, nomeadamente EmpatheticDialogues \parencite{Rashkin2019Empathy}. Nesta fase, modelos de geração conversacional treinados em conversas extraídas de redes sociais, no caso desta âncora o Reddit, tipicamente da família DialoGPT, tornaram-se baselines frequentes em investigação, ainda sem o alinhamento massivo por instruções que caracteriza os \glspl{llm} posteriores \parencite{Zhang2020DialoGPT}.
+
+O segundo marco (\(\sim\)2020--2021; época E2) articula dois desenvolvimentos paralelos: (i) a popularização de classificação emocional multilabel de grão fino com GoEmotions \parencite{Demszky2020GoEmotions}, que reforça a análise de coocorrências afectivas no texto; e (ii) a linha BlenderBot de sistemas de diálogo social, orientados para persona, empatia e conhecimentos em conversação aberta \parencite{Roller2021BlenderBot}. Nesta linha, a análise emocional ganha sofisticação, mas a geração permanece do tipo encoder-decoder ou sequencial, sem o regime de \textit{instruction tuning} generalizado.
+
+O terceiro marco (\(\sim\)2023--2024; época E3) corresponde à difusão de \glspl{llm} \textit{instruction-tuned} de código aberto após a adopção alargada de assistentes alinhados. Modelos compactos desta geração, aqui representados por Phi-3-mini-Instruct \parencite{Abdin2024Phi3}, ilustram um regime em que a empatia comunicativa pode já aparecer com fluência a partir do alinhamento e das instruções \parencite{Welivita2026HumansOrLLMs, Ye2025GenericPersonalized}. Isso não implica que injectar sinais afectivos no \textit{prompt} deixe de ter valor: o \textit{instruction tuning} não eleva de forma monotónica todas as competências sociais \parencite{Ou2024DialogBench}, e o ganho de um sinal explícito é precisamente o que este trabalho testa.
+
+O quarto marco (\(\sim\)2024--2025; época E4) representa \glspl{llm} recentes alinhados, por exemplo Qwen2.5-Instruct \parencite{Yang2025Qwen25}. Avaliações contemporâneas encontram médias altas de empatia percebida nestes regimes \parencite{Welivita2026HumansOrLLMs, Zhou2026TextEmotionEmpathy}, o que motiva a hipótese, testada neste trabalho, de que o ganho de um sinal explícito de ambivalência possa tornar-se residual, sem invalidar o valor da pipeline enquanto mecanismo interpretável \parencite{Bieberstein2026PromptEmpathy}.
+
+Evidência independente reforça a expectativa de médias absolutas elevadas nestes regimes. Em avaliação comparativa com juízes humanos e com \glspl{llm}, respostas de modelos contemporâneos, incluindo GPT-4, LLaMA-2-70B-Chat, Gemini e Mixtral, foram percebidas, no conjunto analisado, como significativamente mais empáticas do que respostas humanas a milhares de \textit{prompts} \parencite{Welivita2026HumansOrLLMs}. O resultado não autoriza a generalização de que ``\glspl{llm} são mais empáticos do que humanos'', mas serve, sim, para situar o baseline contemporâneo: respostas textuais modernas podem alcançar avaliações subjectivas muito altas de empatia.
+
+Num domínio mais exigente, cenários de aconselhamento textual, Zhou e colaboradores comparam DeepSeek-R1, Qwen-Max e GPT-4o com cinquenta conselheiros humanos em inferência emocional e qualidade de resposta empática \parencite{Zhou2026TextEmotionEmpathy}. O quadro que emerge é complementar, não unilateral. Na inferência emocional, humanos, sobretudo noviços, tendem a ser mais precisos nas emoções negativas e os \glspl{llm} saem-se melhor nas positivas. Na qualidade da resposta empática, as diferenças globais entre grupos são pequenas. Em conjunto com Welivita et al., estes resultados fundamentam um baseline contemporâneo forte sem o atribuir exclusivamente à arquitectura Qwen2.5 usada na experiência desta dissertação.
+
+Estes quatro marcos sustentam um gerador âncora por época, de famílias distintas, mantendo o classificador GoEmotions constante: E1 DialoGPT-medium, E2 BlenderBot, E3 Phi-3-mini-Instruct, E4 Qwen2.5-3B-Instruct. A época agrupa o marco, mas não isola um único factor causal. A tabela e o factorial condição \(\times\) época ficam no Capítulo~\ref{chap:Chapter3}. A avaliação passa, assim, a comparar o contributo do sinal explícito de ambivalência \textit{ao longo} desta evolução, e não apenas num único modelo contemporâneo.
+
+%----------------------------------------------------------------------------------------
+
+\section{Síntese crítica e identificação da lacuna de investigação}
+\label{sec:sintese}
+
+O percurso apresentado ao longo deste capítulo permitiu analisar, de forma progressiva, a evolução da modelação computacional da linguagem, a incorporação da dimensão emocional no \gls{pln} e as limitações associadas às abordagens actuais de \gls{analiseemocional}. Subsistem lacunas na conceptualização da emoção: categorias discretas dominam e as técnicas disponíveis permanecem insuficientes \parencite{PlazaDelArco2024Trends, Seyeditabari2018Review}. Os avanços em representação linguística e desempenho algorítmico são da literatura revista, não um resultado empírico desta dissertação.
+
+A análise das abordagens existentes mostrou que os modelos emocionais em \gls{pln} assentam frequentemente em pressupostos simplificadores, como a discretização da emoção em categorias isoladas ou a identificação de uma emoção dominante por enunciado \parencite{PlazaDelArco2024Trends, Seyeditabari2018Review}. Mesmo com a introdução de modelos de \gls{classificacaomultilabel}, a coocorrência emocional tende a ser tratada como uma agregação de estados independentes, sem consideração explícita pelas relações ou tensões entre emoções \parencite{Singh2026MultiEmotionIntensity, Zhao2026MEGE}. Esta limitação torna-se particularmente relevante para a definição restrita de ambivalência deste trabalho, que exige valências opostas no mesmo enunciado.
+
+A discussão sobre a \gls{ambivalenciaemocional} situou este fenómeno como objecto deste trabalho, não como característica estrutural já estabelecida no campo. Os modelos dominantes não a representam \parencite{PlazaDelArco2024Trends, Singh2026MultiEmotionIntensity, Zhao2026MEGE}, e erros de leitura podem empobrecer a resposta gerada \parencite{Huangfu2025NEC}.
+
+No domínio da \gls{empatiacomputacional}, a empatia percebida depende de interpretar a expressão emocional de forma sensível e contextualizada \parencite{Rashkin2019Empathy, Sharma2020Empathy}. Que respostas parciais ou desajustadas resultem de ambivalência não reconhecida é a hipótese testada nesta dissertação, e não um resultado reportado por essas fontes.
+
+Mesmo com trabalhos que modelam emoções mistas de forma explícita, e com propostas como o \gls{nec} que interrogam os limites de centrar a geração no rótulo emocional reconhecido \parencite{Zhao2026MEGE, Huangfu2025NEC}, a lacuna que motiva este trabalho já não se formula como ausência absoluta de modelação de emoções múltiplas. O que falta, de forma mais específica e alinhada ao desenho empírico desta dissertação, é evidência sobre o \textit{valor incremental} de um sinal explícito de ambivalência \textit{derivado do próprio enunciado}, comparado entre gerações distintas de geradores conversacionais, ou seja, quando o próprio modelo já possui capacidades afectivas crescentes.
+
+Nesta revisão, a literatura raramente separa o contributo de um sinal afectivo \textit{explícito} (por exemplo, ambivalência derivada de um classificador) da empatia que pode já emergir nos \glspl{llm} alinhados recentes. Há, contudo, evidência independente de comportamento empático forte em respostas textuais contemporâneas, a par de indícios de que as capacidades sociais produzidas por \textit{instruction tuning} não evoluem de maneira uniforme \parencite{Welivita2026HumansOrLLMs, Ou2024DialogBench}. Sem essa dissociação temporal, comparando gerações de geradores âncora, corre-se o risco de concluir cedo demais que uma pipeline é irrelevante (ou sempre necessária), quando o seu valor pode depender da época do gerador.
+
+Daí a lacuna que motiva este trabalho: (i) operacionalizar a \gls{ambivalenciaemocional} em texto de forma derivada e replicável, e (ii) avaliar empiricamente, de forma cega, se e quando a sua injecção explícita como \gls{sinalcontextual} melhora a \gls{empatiapercebida}, ao longo de marcos históricos de geradores. O objectivo é uma modelação emocional mais expressiva e uma leitura historicamente situada do valor de pipelines afectivas em chatbots.
+
+%----------------------------------------------------------------------------------------

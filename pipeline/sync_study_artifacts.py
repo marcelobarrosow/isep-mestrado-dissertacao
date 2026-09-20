@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Sync canonical cells in data/all_results.json to CSVs and, if present, the dissertation appendices.
 
-Default dissertation paths assume this repo sits next to tmdei-dissertation-template-main-5-final.
-Use --skip-latex when cloning only this repository.
+Default dissertation paths are this repo's documento/ folder.
+Use --skip-latex to refresh CSVs without rewriting appendixB.tex.
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parent
-DISSERTATION = REPO.parent / "tmdei-dissertation-template-main-5-final"
+DISSERTATION = REPO / "documento"
 DEFAULT_RESULTS = REPO / "data" / "all_results.json"
 DEFAULT_CACHE = REPO / "data" / "translation_cache.json"
 DEFAULT_TEX = DISSERTATION / "appendices" / "appendixB.tex"

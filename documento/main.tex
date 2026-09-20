@@ -1,0 +1,177 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TMDEI Dissertation
+% LaTeX Template
+% Version 0.1 (Dec/2015)
+%
+% Adapted to TMDEI/ISEP style (Dec/2015) by
+%  Nuno Pereira (nap@isep.ipp.pt) and
+%  Paulo Baltarejo (pbs@isep.ipp.pt)
+%
+% Based on MastersDoctoralThesis Version 1.2 by Vel (vel@latextemplates.com) and
+% Johannes Böttcher, downloaded from (21/11/15):
+% http://www.LaTeXTemplates.com
+%
+% This template is originally based on a template by:
+% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
+% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
+%
+% Template license:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%https://www.overleaf.com/project/5bfd7e508cfbf932785021c9
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side (for drafting/reading purposes)
+%openany, % Starts the chapter on the next page, even or odd (not recommended)
+%english, % english for English;
+portuguese,% for Portuguese; delete temporary files if you change language (e.g. 'make clean; make')
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing (for drafting/reading purposes)
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents (recommended)
+%toctotoc, % Uncomment to add the main table of contents to the table of contents (not recommended)
+parskip, % Add space between paragraphs (recommended)
+%nohyperref, % Uncomment to not load the hyperref package (not recommended)
+nohyperreflinkcolor, % hyperref links are not colored (comment to color links, for example to produce an electronic-only version)
+headsepline, % Uncomment to get a line under the header
+]{tmdei-style} % The class file specifying the document structure
+
+\usepackage{tikz} % Required for creating graphics programmatically (can be removed if not used)
+\usetikzlibrary{arrows.meta,positioning,fit,calc} % Diagramas de arquitectura (Cap. 4)
+
+\usepackage{pgfplots} % Required for drawing high--quality function plots (can be removed if not used)
+\pgfplotsset{compat=newest}
+
+\usepackage[hidelinks]{hyperref} % no borders on links
+\usepackage{pdfpages} % capa oficial ISEP (A4) como primeira página
+\usepackage{xurl} % quebra de caminhos longos em \path / \texttt
+% Só partir caminhos em delimitadores, não no meio de identificadores (go_em otions).
+\makeatletter
+\def\UrlBreaks{\do\/\do\.\do\_\do\-\do\@}
+\makeatother
+\Urlmuskip=0mu plus 3mu
+\hyphenation{Frame-work}
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\listalgorithmname}{Lista de Algoritmos}
+\DeclareTOCStyleEntry[level=1,indent=1.5em,numwidth=2.3em]{tocline}{algorithm}
+
+%
+% Next you have examples of admissable citation styles; we recomend using the authoryear-comp citation style (which resembles Harvard); don't forget to only uncomment one
+%
+
+% APA style: American Psychological Association citation style (7th edition)
+\usepackage[style=apa,backend=biber]{biblatex} % Bibtex backend with the APA citation style (APA 7th edition format)
+% APA 7th edition: Bibliography formatting (hanging indent, double spacing, alphabetical order)
+\ExecuteBibliographyOptions{sorting=nyt} % Sort by name, year, title (alphabetical)
+\AtEveryBibitem{\clearfield{annotation}}
+
+% authoryear-comp: recommended citation style (e.g. (Buendía, 1860), (Buendía 1910, Arcadio 1940))
+%\usepackage[style=authoryear-comp,backend=biber]{biblatex} % Bibtex backend with the authoryear-comp citation style (authoryear citations, bibliography ordered alphabetically)
+
+% numeric citation style (e.g. [1], [1-3])
+%\usepackage[style=numeric-comp,sorting=none,backend=biber]{biblatex} % Bibtex backend with the numeric-comp citation style (numeric citations, bibliography ordered by appearance)
+
+% alphabetic citation style (e.g. [Buendía10], [Buendía10, Arcadio40])
+%\usepackage[style=alphabetic,sorting=none,backend=biber]{biblatex} % Bibtex backend with the alphabetic citation style (alphabetic citations, bibliography ordered by appearance)
+
+
+\addbibresource{mainbibliography.bib} % The filename of the bibliography
+
+\makeglossaries % build the glossary
+\glsnopostdottrue % as descrições em glossary.tex já terminam com ponto (equivalente a nopostdot; \glsSetNoPostDot é do glossaries-extra)
+
+%----------------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%----------------------------------------------------------------------------------------
+
+\thesistitle{{Sinal de Ambivalência Emocional em Texto e Empatia Percebida em Chatbots}} % Your thesis title, this is used in the title, print it elsewhere with \ttitle
+
+%\thesissubtitle{{[}Thesis Subtitle{]}} % Your thesis title, this is used in the title, print it elsewhere with \tsubtitle
+
+\author{Marcelo Mota \textsc{Barroso}} % Your name, this is used in the title page, print it elsewhere with \authorname
+
+\subjectarea{Engenharia de Software} % Specialisation area (Cybersecurity and Systems Administration; Data Engineering; Software Engineering;Games, Graphics and Interactive Systems; Information and Knowledge Systems), used in the title page, print it elsewhere with \areaname
+
+\advisor{Dr. Constantino \textsc{Martins}} % Your advisors's (academic mentor) name, this is used in the title page, print it elsewhere with \advname
+
+%\advisors{Dr. Jane \textsc{Smith} and Dr. Jake Smith} % In case you have multiple advisors and/or do not want to distinguish between advisor and co-advisor, use \advisors; if defined, will override \advisor
+
+%\coadvisor{Dr. Jack \textsc{Smith}} % Your co-advisors's name, this is used in the title page, print it elsewhere with \coadvname (comment, if no co-advisor)
+
+%\supervisor{Eng. João \textsc{Martins}} % Optional company/host mentor — commented (template placeholder)
+
+%\supervisors{Dr. James \textsc{Smith} and Jace Smith} % In case you have multiple supervisors and/or do not want to distinguish between supervisor and co-supervisor use \supervisors; if defined, will override \advisor
+
+%\cosupervisor{Dr. Jordan \textsc{Smith}} % Your co-advisors's name, this is used in the title page, print it elsewhere with \cosupname (comment, if no co-supervisor)
+
+% if committeepresident is defined, will add the thesis committee to the front page
+%\committeepresident{Dr. Jonny Smith, Professor, DEI/ISEP} % Name of the president of the evaluation committee, print it elsewhere with \presidentname
+
+%\committeemembers{Dr. Jaimie Smith, Professor, DEI/ISEP\\Dr. Jones Smith, Professor, DEI/ISEP\\Dr. Jagger Smith, Professor, DEI/ISEP} % Name of the evaluation committee members (up to four), print it elsewhere with \committee
+
+\keywords{Ambivalência emocional, Empatia percebida, Diálogo empático, Emoções mistas, Chatbots, Modelos de linguagem} % Please define up to 6 keywords that better describe your work, print it elsewhere with \keywordnames
+
+\keywordsother{Emotional ambivalence, Perceived empathy, Empathetic dialogue, Mixed emotions, Chatbots, Large language models} % English keywords for the Abstract
+
+\university{\href{https://www.isep.ipp.pt}{Instituto Superior de Engenharia do Porto}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+
+\department{\href{https://www.dei.isep.ipp.pt}{Departamento de Engenharia Informática}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+
+\thesisdate{Porto, 20 de Setembro de 2026} % thesis date,  print it elsewhere with \tdate
+
+\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
+\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
+\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+
+\begin{document}
+%----------------------------------------------------------------------------------------
+%	FRONT MATTER
+%----------------------------------------------------------------------------------------
+% Include the frontmatter of your thesis here
+\input{frontmatter/frontmatter}
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY
+%----------------------------------------------------------------------------------------
+
+% Include the chapters of the thesis as separate folder for each chapter
+% Uncomment the lines as you write the chapters
+\input{ch1/chapter1}
+\input{ch2/chapter2}
+\input{ch3/chapter3}
+\input{ch4/chapter4}
+\input{ch5/chapter5}
+\input{ch6/chapter6}
+
+%----------------------------------------------------------------------------------------
+%	GLOSSARY
+%----------------------------------------------------------------------------------------
+
+\printglossary[title={Glossário},style=altlist]
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\printbibliography[heading=bibintoc,title={Referências}]
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - APPENDICES
+%----------------------------------------------------------------------------------------
+% Include the appendices of the thesis as separate files from the Appendices folder
+% Uncomment the lines as you write the Appendices
+\begin{appendices}
+
+\input{appendices/appendixA}
+\input{appendices/appendixB}
+%\input{appendices/appendixC}
+
+\end{appendices}
+%----------------------------------------------------------------------------------------
+
+\end{document}

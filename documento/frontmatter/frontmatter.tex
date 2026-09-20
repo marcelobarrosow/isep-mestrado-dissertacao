@@ -1,0 +1,152 @@
+% we include the glossary here (frontmatter is included with \input, so this command is as if it was in main.tex)
+\input{frontmatter/glossary}
+\input{frontmatter/acronyms}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+%----------------------------------------------------------------------------------------
+%	OFFICIAL ISEP COVER (front A4) + TITLE PAGE
+%----------------------------------------------------------------------------------------
+% The portal export is a hardcover wrap (back + spine + front). Published
+% dissertations use only the front face, A4, as page 1; the LaTeX title page
+% follows immediately as page 2.
+
+\includepdf[
+	pages=1,
+	pagecommand={\thispagestyle{empty}\ifdef{\pdfbookmark}{\pdfbookmark[0]{Capa}{bookmark-capa-oficial}}{}}
+]{frontmatter/assets/capa-oficial-isep-frente-A4.pdf}
+
+% The titlepage environment does \cleardoublepage\newpage, which would insert a
+% blank leaf after the official cover. Write the title on the page already opened.
+\makeatletter
+\let\tmdeinewpage\newpage
+\let\tmdeicleardoublepage\cleardoublepage
+\let\newpage\relax
+\let\cleardoublepage\relax
+\maketitlepage
+\let\newpage\tmdeinewpage
+\let\cleardoublepage\tmdeicleardoublepage
+\clearpage
+\makeatother
+
+
+%----------------------------------------------------------------------------------------
+%	STATEMENT of INTEGRITY
+%----------------------------------------------------------------------------------------
+\integritystatement
+
+%----------------------------------------------------------------------------------------
+%	DEDICATION  (optional)
+%----------------------------------------------------------------------------------------
+
+\begin{dedicatory}
+\begin{center}
+\textit{Aos que nunca deixaram de perguntar porquê.}
+\end{center}
+\end{dedicatory}
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+
+Os sistemas conversacionais baseados em Processamento de Linguagem Natural têm vindo a ganhar espaço na interacção humano-máquina. Mesmo assim, a análise emocional em texto continua limitada perante emoções complexas e coexistentes. Este trabalho centra-se na ambivalência emocional, a coexistência de emoções de valências distintas no mesmo enunciado, e no problema de saber se um sinal explícito dessa ambivalência ainda acrescenta empatia percebida em geradores de épocas diferentes.
+
+O objectivo é operacionalizar a ambivalência em texto e medir o seu contributo, face a uma \textit{baseline} sem esse sinal, em quatro geradores âncora associados às épocas E1--E4: DialoGPT, BlenderBot, Phi-3-mini-Instruct e Qwen2.5-3B-Instruct. A ambivalência é definida a partir de um classificador multilabel GoEmotions e injectada como contexto numa pipeline em Python, com Hugging Face Transformers. A avaliação é humana e cega: 52 participantes no filtro estrito, 2016 classificações Likert, num questionário online desenvolvido para o estudo. A inferência principal é um modelo misto cruzado.
+
+A hipótese de um ganho maior nos geradores mais antigos (DialoGPT e BlenderBot), a cair até zero nos mais recentes, não se confirma. Todos os intervalos de confiança do diferencial \(\Delta\) incluem zero. O padrão mais estável é a diferença entre geradores: a empatia percebida varia sobretudo entre geradores âncora (cerca de \(1{,}5\) em DialoGPT, \(6{,}1\) em Phi-3), não entre a condição baseline e a condição com sinal. As diferenças absolutas misturam arquitectura, alinhamento e formato de \textit{prompt}, e o rótulo histórico de cada modelo não isola um factor causal. A explicitação de rótulos afectivos derivados do próprio enunciado não apresentou benefício incremental detectável neste desenho. Isso não prova que informação afectiva seja inútil. A avaliação mede a empatia das respostas, não a ambivalência detectada pelo classificador.
+
+\end{abstract}
+
+\begin{abstractotherlanguage}
+
+Conversational systems based on Natural Language Processing are increasingly used in human-machine interaction. Even so, emotion analysis in text remains limited when affect is complex or mixed. This work focuses on emotional ambivalence, the co-occurrence of differently valenced emotions in the same utterance, and on whether an explicit signal of that ambivalence still adds perceived empathy across generators from different eras.
+
+The aim is to operationalise ambivalence in text and to measure its contribution, against a baseline without that signal, in four anchor generators associated with epochs E1--E4: DialoGPT, BlenderBot, Phi-3-mini-Instruct and Qwen2.5-3B-Instruct. Ambivalence is defined from a GoEmotions multi-label classifier and injected as context in a Python generation pipeline that uses Hugging Face Transformers. The evaluation was conducted by human raters under blinded conditions: 52 participants in the strict-filter sample provided 2,016 Likert ratings through an online questionnaire developed for the study. The primary inferential analysis used a mixed-effects model with crossed random effects.
+
+The hypothesis of a larger gain on the older generators (DialoGPT and BlenderBot), falling towards zero on the more recent ones, is not confirmed. All confidence intervals for the differential \(\Delta\) include zero. The most stable pattern is the difference among generators: perceived empathy varies mainly across anchor generators (about \(1.5\) on DialoGPT, \(6.1\) on Phi-3), not between the baseline condition and the signal condition. Absolute differences mix architecture, alignment and prompt format, and the historical label of each model does not isolate a causal factor. Making affective labels derived from the utterance itself explicit did not yield a detectable incremental benefit in this design. That does not prove that affective information is useless. The evaluation measures the empathy of the replies, not the ambivalence detected by the classifier.
+
+\end{abstractotherlanguage}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS (optional)
+%----------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+
+Agradeço ao Professor Doutor Constantino Martins, pela orientação, pela disponibilidade e pelas críticas que ajudaram a clarificar o desenho e o foco deste trabalho.
+
+Agradeço ao Departamento de Engenharia Informática do ISEP e ao \gls{tmdei} pelo enquadramento académico que tornou possível esta dissertação.
+
+Agradeço a todas as pessoas que participaram na avaliação humana e a quem ajudou a divulgar o questionário. Sem essa colaboração, a parte empírica não avançaria.
+
+Agradeço ainda à minha família e aos amigos próximos, pelo apoio ao longo do percurso e pela paciência nos períodos mais intensos de trabalho.
+
+\end{acknowledgements}
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+\tableofcontents % Prints the main table of contents
+
+\listoffigures % Prints the list of figures
+
+\listoftables % Prints the list of tables
+
+\iflanguage{portuguese}{
+\renewcommand{\listalgorithmname}{Lista de Algoritmos}
+}
+\cleardoublepage
+\chapter*{\listalgorithmname}
+\addcontentsline{toc}{chapter}{\listalgorithmname}
+\makeatletter
+\@starttoc{loa}
+\makeatother
+
+
+%\renewcommand{\lstlistlistingname}{List of Source Code}
+%\iflanguage{portuguese}{
+%\renewcommand{\lstlistlistingname}{Lista de C\'odigo}
+%}
+%\lstlistoflistings % Prints the list of listings (programming language source code)
+%\addchaptertocentry{\lstlistlistingname}
+
+
+%----------------------------------------------------------------------------------------
+%	SYMBOLS
+%----------------------------------------------------------------------------------------
+
+%\begin{symbols}{lll} % Include a list of Symbols (a three column table)
+
+%$a$ & distance & \si{\meter} \\
+%$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
+%Symbol & Name & Unit \\
+
+%\addlinespace % Gap to separate the Roman symbols from the Greek
+
+%$\omega$ & angular frequency & \si{\radian} \\
+
+%\end{symbols}
+
+%----------------------------------------------------------------------------------------
+%	ACRONYMS
+%----------------------------------------------------------------------------------------
+
+\newcommand{\listacronymname}{List of Abbreviations}
+\iflanguage{portuguese}{
+\renewcommand{\listacronymname}{Lista de Siglas e Acrónimos}
+}
+
+\printglossary[title=\listacronymname,type=\acronymtype,style=long]
+\glsresetall
+
+%----------------------------------------------------------------------------------------
+%	DONE
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+\pagestyle{thesis} % Return the page headers back to the "thesis" style

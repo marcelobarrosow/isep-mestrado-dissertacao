@@ -1,0 +1,160 @@
+\newglossaryentry{analiseemocional}{
+ name={análise emocional},
+ description={Processo computacional de identificação de emoções expressas linguisticamente em texto, com base em padrões lexicais, semânticos e discursivos, sem inferência directa sobre estados psicológicos internos do utilizador.}
+}
+
+\newglossaryentry{emocaoexpressa}{
+ name={emoção expressa},
+ description={Manifestação linguística de um estado afectivo através do discurso, distinta da emoção sentida, e constituindo a única dimensão emocional directamente observável e passível de modelação computacional.}
+}
+
+\newglossaryentry{ambivalenciaemocional}{
+ name={ambivalência emocional},
+ description={Coexistência, no mesmo enunciado, de pelo menos uma emoção de valência positiva e uma negativa, ambas acima do limiar de activação. É uma propriedade derivada, não uma emoção autónoma. Distingue-se das emoções mistas da literatura, que podem incluir coocorrência sem oposição de valência: duas emoções positivas não contam.}
+}
+
+\newglossaryentry{valenciaemocional}{
+ name={valência emocional},
+ description={Dimensão afectiva que classifica emoções como positivas ou negativas, utilizada para distinguir emoções de natureza oposta no cálculo da ambivalência emocional.}
+}
+
+\newglossaryentry{empatiacomputacional}{
+ name={empatia computacional},
+ description={Capacidade funcional de um sistema artificial gerar respostas que são percebidas como empáticas pelo utilizador, avaliada com base na adequação emocional da resposta e não na existência de estados emocionais internos no sistema.}
+}
+
+\newglossaryentry{empatiapercebida}{
+ name={empatia percebida},
+ description={Avaliação subjectiva realizada por utilizadores ou avaliadores humanos relativamente ao grau de compreensão, sensibilidade emocional e adequação demonstrados por uma resposta gerada por um sistema conversacional.}
+}
+
+\newglossaryentry{classificacaomultilabel}{
+ name={classificação multi-label},
+ description={Abordagem de classificação em que um mesmo texto pode ser associado simultaneamente a múltiplas categorias emocionais, permitindo a representação da coocorrência de emoções.}
+}
+
+\newglossaryentry{propriedadederivada}{
+ name={propriedade derivada},
+ description={Característica calculada a partir da combinação de saídas de um modelo, não correspondendo a um rótulo supervisionado, mas a uma relação funcional entre variáveis observáveis.}
+}
+
+\newglossaryentry{limiaractivacao}{
+ name={limiar de activação},
+ description={Valor mínimo de activação emocional acima do qual uma emoção é considerada relevante para efeitos de análise e cálculo da ambivalência emocional.}
+}
+
+\newglossaryentry{indiceambivalencia}{
+ name={índice de ambivalência},
+ description={Métrica contínua que representa a intensidade da ambivalência emocional, calculada como função das activa\-ções das emoções positiva e negativa dominantes num enunciado.}
+}
+
+\newglossaryentry{pipeline}{
+ name={pipeline de processamento},
+ description={Artefacto de código que analisa o enunciado, deriva a ambivalência e gera a resposta. Corre nas duas condições experimentais; o que muda entre elas é a presença ou ausência do sinal contextual no \textit{prompt}.}
+}
+
+\newglossaryentry{sinalcontextual}{
+ name={sinal contextual},
+ description={Neste trabalho, o par de emoções dominantes (positiva e negativa) injectado no \textit{prompt} do gerador, sem constituir um rótulo supervisionado nem uma regra fixa.}
+}
+
+\newglossaryentry{within}{
+ name={within-subject},
+ description={Desenho experimental em que os mesmos participantes avaliam todas as condições experimentais, permitindo controlar variabilidade interindividual.}
+}
+
+\newglossaryentry{likert}{
+ name={Likert},
+ description={Instrumento de medição baseado em escalas ordinais, utilizado para recolher avaliações subjectivas de participantes relativamente a dimensões como empatia, adequação emocional e utilidade.}
+}
+
+\newglossaryentry{geracaocondicionada}{
+ name={geração condicionada},
+ description={Processo de geração de texto em que a resposta produzida por um modelo de linguagem é influenciada por instruções ou contexto adicional, sem recurso a re-treinamento do modelo.}
+}
+
+\newglossaryentry{inferenciaspsicologicas}{
+ name={inferências psicológicas internas},
+ plural={inferências psicológicas internas},
+ description={Suposições sobre estados mentais ou emocionais internos do utilizador que não são directamente observáveis no texto e que são explicitamente evitadas na abordagem proposta.}
+}
+
+\newglossaryentry{texto}{
+ name={texto},
+ plural={textos},
+ description={Linguagem escrita enquanto objecto de processamento computacional (input, conjunto de textos ou output gerado), sem comprometer uma unidade conversacional.}
+}
+
+\newglossaryentry{enunciado}{
+ name={enunciado},
+ plural={enunciados},
+ description={Unidade de fala ou escrita produzida por um interlocutor numa dada ocasião. Neste trabalho, é a unidade operacional da ambivalência e da geração: cada estímulo é um enunciado do utilizador, eventualmente composto por mais do que uma frase, classificado de forma isolada.}
+}
+
+\newglossaryentry{discurso}{
+ name={discurso},
+ plural={discursos},
+ description={Uso da linguagem em contexto comunicativo. Designa a emoção e a avaliação na linguagem, e não no estado interno, sem coincidir necessariamente com um diálogo completo.}
+}
+
+\newglossaryentry{dialogo}{
+ name={diálogo},
+ plural={diálogos},
+ description={Sequência de enunciados entre interlocutores. O histórico do diálogo são os enunciados anteriores ao enunciado corrente.}
+}
+
+\newglossaryentry{estimulo}{
+ name={estímulo},
+ plural={estímulos},
+ description={Enunciado construído para o protocolo empírico. Neste trabalho há 12 estímulos em inglês, redigidos pelo autor, filtrados pelo GoEmotions, e cruzados com época e condição.}
+}
+
+\newglossaryentry{marcohistorico}{
+ name={marco histórico},
+ plural={marcos históricos},
+ description={Momento da evolução da geração conversacional que justifica escolher um tipo de modelo. Neste trabalho há quatro: \(\sim\)2019--20 (diálogo clássico), \(\sim\)2020--21 (diálogo social), \(\sim\)2023--24 (LLM \textit{instruction-tuned}) e \(\sim\)2024--25 (LLM alinhado recente).}
+}
+
+\newglossaryentry{epoca}{
+ name={época},
+ plural={épocas},
+ sort={epoca},
+ description={Factor experimental que alinha um marco histórico a um gerador âncora (E1--E4). Não isola o tempo como causa: mistura arquitectura, treino, alinhamento, formato de \textit{prompt} e descodificação.}
+}
+
+\newglossaryentry{geradorancora}{
+ name={gerador âncora},
+ plural={geradores âncora},
+ description={Modelo público que ocupa uma época: E1 DialoGPT-medium, E2 BlenderBot, E3 Phi-3-mini-Instruct e E4 Qwen2.5-3B-Instruct.}
+}
+
+\newglossaryentry{baseline}{
+ name={condição baseline},
+ sort={baseline},
+ description={Nível do factor experimental em que o gerador âncora produz a resposta sem metadados de ambivalência.}
+}
+
+\newglossaryentry{condicaopipeline}{
+ name={condição com sinal},
+ sort={condicao com sinal},
+ description={Nível do factor experimental em que o gerador âncora recebe o par de emoções dominantes positivas e negativas, com a instrução de o usar só como informação de fundo. Nos dados e no CSV, este nível está codificado como \texttt{pipeline}.}
+}
+
+\newglossaryentry{celula}{
+ name={célula},
+ plural={células},
+ sort={celula},
+ description={Unidade do factorial: um estímulo \(\times\) uma época \(\times\) uma condição (96 no total). No questionário, cada célula apresentada é um item; o juízo Likert de um participante sobre um item é uma classificação.}
+}
+
+\newglossaryentry{delta}{
+ name={diferencial de empatia},
+ sort={delta},
+ description={Contraste \(\Delta\) da condição com sinal face à baseline na mesma época (nos dados, \texttt{pipeline} \(-\) \texttt{baseline}). Não mede a empatia absoluta do gerador, mas o ganho (ou perda) associado ao sinal contextual.}
+}
+
+\newglossaryentry{filtroestrito}{
+ name={filtro estrito},
+ sort={filtro estrito},
+ description={Recorte da análise principal: sessão concluída, verificação de atenção correcta e sem ritmo demasiado rápido. Nesta amostra, 52 participantes e 2016 classificações.}
+}

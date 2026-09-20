@@ -1,0 +1,138 @@
+% Chapter 1
+% Introdução
+
+\chapter{Introdução}
+\label{chap:Chapter1}
+
+Este capítulo situa o tema, sistemas conversacionais em linguagem natural, o que ainda falha na leitura emocional do texto, e porque a ambivalência importa. Depois formula-se o problema, a justificação, os objectivos e a hipótese (o valor de um sinal explícito de ambivalência muda com a geração do modelo). Seguem-se as considerações éticas e o planeamento do trabalho. O capítulo fecha com a metodologia de investigação, os contributos produzidos e o mapa dos capítulos seguintes.
+
+%----------------------------------------------------------------------------------------
+
+\section{Contextualização}
+\label{sec:contextualizacao}
+
+Os sistemas conversacionais baseados em linguagem natural, como chatbots e assistentes virtuais, têm vindo a ganhar peso na interacção entre pessoas e software. Aparecem, entre outros contextos, em \gls{dialogo} aberto e em apoio textual com carga emocional \parencite{Rashkin2019Empathy, Sharma2020Empathy, PlazaDelArco2024Trends}. Estes sistemas assentam em arquitecturas de atenção e em modelos pré-treinados que geram texto contextualizado \parencite{Vaswani2017Attention, Devlin2019BERT}.
+
+Mesmo com esse progresso, a qualidade da interacção continua limitada pela forma como a emoção no \gls{texto} é lida e usada. Em muitos diálogos, uma boa resposta não basta ser semanticamente correcta, precisa de reconhecer sinais afectivos mais ricos e responder de forma adequada ao que a pessoa expressou \parencite{Rashkin2019Empathy}.
+
+Tecnicamente, a \gls{analiseemocional} em texto foi, durante muito tempo, polaridade ou emoções discretas. A polaridade classifica texto em positivo, negativo ou neutro \parencite{Tan2023Survey}; as categorias discretas, como as de Ekman e Plutchik, tratam emoções como estados isolados ou exclusivos \parencite{Seyeditabari2018Review}. Na conversa real a linguagem mistura informação e emoção no mesmo \gls{discurso} \parencite{Wiebe2005Opinions}.
+
+Há, portanto, um desfasamento entre o poder técnico dos chatbots, arquitecturas de atenção e modelos pré-treinados \parencite{Vaswani2017Attention, Devlin2019BERT}, e a complexidade emocional da linguagem, em que as técnicas disponíveis permanecem insuficientes e as categorias pré-definidas encaixam mal \parencite{PlazaDelArco2024Trends, Seyeditabari2018Review}. Em paralelo, os geradores evoluíram dos diálogos clássicos aos \glspl{llm} \textit{instruction-tuned}, e o comportamento empático das respostas não é uniforme entre épocas \parencite{Rashkin2019Empathy, Ou2024DialogBench, Welivita2026HumansOrLLMs}. Neste trabalho, qualquer intervenção afectiva é lida nesse percurso histórico.
+
+%----------------------------------------------------------------------------------------
+
+\section{Problema de investigação}
+\label{sec:problema}
+
+Na comunicação humana podem coexistir emoções distintas e, por vezes, contraditórias, no mesmo \gls{enunciado}. A isso chama-se \gls{ambivalenciaemocional}: orgulho com receio, esperança com frustração, afecto com raiva. A emoção no discurso é objecto de análise linguística \parencite{Wiebe2005Opinions}, e as emoções mistas são objecto de modelação em \gls{pln} \parencite{Zhao2026MEGE, Singh2026MultiEmotionIntensity}.
+
+Os modelos de \gls{pln} usados em chatbots, em geral, não foram feitos para marcar essa coocorrência de forma explícita. Mesmo em \gls{classificacaomultilabel}, várias emoções costumam ser somadas como rótulos independentes, sem olhar para a tensão entre elas \parencite{Singh2026MultiEmotionIntensity, Zhao2026MEGE}.
+
+Em sistemas conversacionais, uma leitura emocional incompleta pode produzir respostas pouco empáticas, sobretudo em contextos sensíveis \parencite{Sharma2020Empathy, Rashkin2019Empathy}. Trabalhos sobre emoções mistas sugerem que reduzir o estado afectivo a um único rótulo empobrece a geração \parencite{Zhao2026MEGE, Wan2025EmoDynamiX, Singh2026MultiEmotionIntensity}. Nos \glspl{llm} alinhados discute-se a hipótese de a validação emocional já emergir sem sinal externo \parencite{Bieberstein2026PromptEmpathy, Welivita2026HumansOrLLMs}. A pergunta deixa de ser só ``como detectar ambivalência'' e passa a ser \textit{quando} esse sinal ainda acrescenta valor.
+
+O problema deste trabalho é, pois, duplo: permanece pouco explorada uma operacionalização simples, interpretável e replicável da ambivalência como sinal contextual para geração, e falta evidência empírica sobre o valor incremental desse sinal na empatia percebida em diferentes gerações de modelos conversacionais.
+
+%----------------------------------------------------------------------------------------
+
+\section{Justificação}
+\label{sec:justificacao}
+
+Sem uma modelação explícita da \gls{ambivalenciaemocional}, os sistemas partem de pressupostos que reduzem a emoção a categorias estáticas ou a um rótulo dominante \parencite{PlazaDelArco2024Trends, Singh2026MultiEmotionIntensity}. Erros nessa leitura podem propagar-se para respostas inadequadas ou genéricas \parencite{Huangfu2025NEC}.
+
+Do lado humano, a empatia percebida e a validação emocional dependem de reconhecer o que a pessoa expressou \parencite{Rashkin2019Empathy, Son2026EmotionalValidation}. Esses trabalhos fundamentam a relação entre reconhecimento emocional e empatia; a extensão específica dessa relação à ambivalência constitui a hipótese testada nesta dissertação. Em contextos sensíveis, uma leitura incompleta piora a experiência \parencite{Rashkin2019Empathy}.
+
+Vale a pena juntar a modelação técnica a uma representação mais fiel, ainda que limitada ao que o texto torna observável, desses fenómenos afectivos. Tratar a \gls{ambivalenciaemocional} como \gls{sinalcontextual}, e medi-la às cegas em geradores âncora de épocas diferentes, permite ver se o sinal ajuda de forma estrutural ou sobretudo nas gerações mais antigas.
+
+%----------------------------------------------------------------------------------------
+
+\section{Objectivos da investigação}
+\label{sec:objetivos}
+
+Com estas limitações e com a evolução dos geradores, o passo seguinte é operacionalizar a ambivalência em texto e medir o seu contributo para a empatia percebida em função da época. Neste trabalho distingue-se \gls{marcohistorico} (o momento da literatura), \gls{epoca} (o factor do desenho, E1--E4) e \gls{geradorancora} (o modelo que ocupa essa época). O detalhe dos quatro marcos fica no Capítulo~\ref{chap:Chapter2}; a operacionalização, no Capítulo~\ref{chap:Chapter3}.
+
+\label{sec:objetivo_geral}
+O objectivo geral é investigar se, e em que medida, a identificação e representação computacional da \gls{ambivalenciaemocional} em texto, injectada como \gls{sinalcontextual} numa \gls{pipeline} e geração, contribui para a \gls{empatiapercebida} em sistemas conversacionais ao longo de \glspl{marcohistorico} de modelos geradores. Para o concretizar:
+
+\begin{itemize}
+ \item Analisar abordagens de \gls{analiseemocional} em \gls{pln}, com foco em \gls{classificacaomultilabel}, e identificar \glspl{marcohistorico} úteis para a geração conversacional empática.
+ \item Definir operacionalmente a \gls{ambivalenciaemocional} como propriedade derivada da coocorrência de emoções de valências distintas em texto.
+ \item Conceber e implementar uma \gls{pipeline} em Python, com Hugging Face Transformers, que use a detecção de \gls{ambivalenciaemocional} como \gls{sinalcontextual} na geração.
+ \item Avaliar, em estudo cego com juízos humanos, o impacto desse sinal na \gls{empatiapercebida}, comparando a \gls{baseline} e a \gls{condicaopipeline} em quatro \glspl{geradorancora} de \glspl{epoca} distintas.
+ \item Analisar os resultados por época, quantificar o diferencial de empatia (\(\Delta\)) e discutir o que isso implica para o desenho de chatbots.
+\end{itemize}
+
+\subsection{Hipótese}
+\label{sec:hipotese}
+
+A hipótese é que o ganho de empatia percebida da condição com sinal explícito de ambivalência, face a uma \textit{baseline} sem esse sinal, é maior nos geradores de épocas anteriores e tende a cair, podendo aproximar-se de zero, nos \glspl{llm} recentes altamente alinhados, nos quais se hipotetiza que a validação emocional já possa surgir de forma implícita \parencite{Bieberstein2026PromptEmpathy}.
+
+%----------------------------------------------------------------------------------------
+
+\section{Considerações éticas}
+\label{sec:consideracoes_eticas}
+
+A componente empírica assenta na avaliação humana, cega, de respostas geradas por modelos conversacionais. A participação é voluntária e restrita a adultos (\(\ge 18\) anos), com consentimento informado antes do início da sessão. O estudo não constitui intervenção clínica nem aconselhamento psicológico, os participantes julgam a empatia percebida de textos, sem interacção terapêutica.
+
+Os \glspl{estimulo} tocam medo, ansiedade, vergonha, dilemas médicos, financeiros e relacionais. O risco de reacção emocional não é nulo, mesmo sem ser uma intervenção clínica. A pessoa avalia textos de terceiros, não recebe resposta personalizada ao que ela própria vive, e pode abandonar a qualquer momento. As classificações já gravadas permanecem na base, associadas a um identificador interno, sem demografia, e não há recontacto.
+
+Os 12 estímulos apresentados aos geradores âncora foram escritos pelo autor para expressar ambivalência emocional explícita e plausível, com sinais de valências opostas no mesmo enunciado, e só entraram no lote quando o GoEmotions confirmou essa condição. As 96 respostas dos geradores âncora tiveram uma revisão mínima, pelas mesmas regras da \gls{qa} automática (\texttt{quality.py}). Células recusadas voltaram a ser executadas na mesma célula até a \gls{qa} aceitar, sem escolher entre várias válidas nem editar o texto. O número de células regeneradas não ficou registado no log; o lote avaliado são as 96 células finais. Fora desses casos, o conteúdo não foi revisto nem editado. Essa decisão é metodológica. Alterar o texto gerado significaria avaliar uma versão humana das respostas, e não o comportamento dos geradores. A tradução automática EN\(\rightarrow\)PT foi revista por humano, para garantir que o texto em português reproduzia o original.
+
+Não se recolhem dados demográficos. As classificações são analisadas de forma agregada e anonimizada. O instrumento correu num servidor do estudo, com acesso de administração reservado ao autor. As classificações anonimizadas e os artefactos de geração ficam no repositório público do estudo (\url{https://github.com/marcelobarrosow/isep-mestrado-dissertacao}), por tempo indeterminado. A base operacional do questionário, incluindo tokens de retoma, permanece sob controlo do autor até ao fim do ciclo de defesa e é depois eliminada.
+
+O detalhe do protocolo (desenho factorial, cegagem, controlos de atenção e tratamento dos dados) consta do Capítulo~\ref{chap:Chapter3}; o material apresentado aos participantes está resumido no Apêndice~\ref{AppendixA}.
+
+%----------------------------------------------------------------------------------------
+
+\section{Planeamento do trabalho}
+\label{sec:planeamento}
+
+O trabalho organizou-se em fases sucessivas, alinhadas com a estrutura da dissertação:
+
+\begin{enumerate}
+    \item Revisão da literatura em análise emocional, ambivalência e empatia computacional, com identificação da lacuna e dos marcos históricos dos geradores (Capítulo~\ref{chap:Chapter2}).
+    \item Definição operacional da ambivalência, desenho factorial condição \(\times\) época, recrutamento e protocolo de avaliação humana cega (Capítulo~\ref{chap:Chapter3}).
+    \item Implementação da pipeline em Python e Hugging Face, geração das 96 células e desenvolvimento do questionário online (Capítulo~\ref{chap:Chapter4}).
+    \item Recolha das classificações, análise estatística e discussão dos resultados (Capítulo~\ref{chap:Chapter5}).
+    \item Síntese de conclusões, limitações e trabalho futuro (Capítulo~\ref{chap:Chapter6}), em paralelo com a consolidação do texto e dos anexos.
+\end{enumerate}
+
+O detalhe operacional de cada fase encontra-se nos capítulos referidos, mas este planeamento serve apenas para situar a sequência do projecto.
+
+%----------------------------------------------------------------------------------------
+
+\section{Metodologia de investigação}
+\label{sec:metodologia}
+
+A metodologia segue o paradigma de \gls{dsr}, comum em sistemas de informação quando o centro do trabalho é criar e avaliar um artefacto para um problema real \parencite{Hevner2004Design, Peffers2007Design}.
+
+No \gls{dsr}, a investigação organiza-se em torno de artefactos (modelos, métodos, sistemas) cuja utilidade se demonstra por avaliação sistemática. Isso liga teoria a decisões de desenho e mantém rigor e relevância prática \parencite{Hevner2004Design}.
+
+Aqui o artefacto é a \gls{pipeline} que usa a \gls{ambivalenciaemocional} (via GoEmotions) como sinal na geração, mais o protocolo de avaliação humana cega factorial (condição \(\times\) época). O \gls{dsr} serve para manter essas decisões explícitas e para avaliar o artefacto face aos objectivos \parencite{Peffers2007Design}.
+
+%----------------------------------------------------------------------------------------
+
+\section{Contributos do trabalho}
+\label{sec:contributos}
+
+O trabalho apresenta uma definição operacional da \gls{ambivalenciaemocional} em texto, derivada de análise multi-label e usável em código, e uma \gls{pipeline} documentada e disponibilizada para replicação que usa essa ambivalência como sinal na geração, sem respostas pré-definidas nem inferência de estados afectivos que o enunciado não expressa.
+
+Foi produzida evidência empírica cega sobre o impacto desse sinal na empatia percebida \textit{ao longo de épocas de geradores}. A hipótese de ganho incremental não se confirmou; a variação mais estável está entre geradores, não entre condições.
+
+%----------------------------------------------------------------------------------------
+
+\section{Estrutura da dissertação}
+\label{sec:estrutura}
+
+A dissertação organiza-se assim.
+
+O Capítulo~\ref{chap:Chapter2} revê o estado da arte em \gls{analiseemocional}, ambivalência e empatia computacional, identifica os marcos históricos e as épocas E1--E4 dos geradores âncora, e fecha na lacuna de investigação.
+
+O Capítulo~\ref{chap:Chapter3} descreve a metodologia, definição da ambivalência, desenho factorial, recrutamento, cegagem e protocolo humano.
+
+O Capítulo~\ref{chap:Chapter4} cobre a implementação da pipeline e do instrumento, incluindo \textit{prompts}, proveniência da geração e o questionário online.
+
+O Capítulo~\ref{chap:Chapter5} traz os resultados e a discussão da avaliação humana cega.
+
+O Capítulo~\ref{chap:Chapter6} sintetiza conclusões, limitações e trabalho futuro.
+
+%----------------------------------------------------------------------------------------

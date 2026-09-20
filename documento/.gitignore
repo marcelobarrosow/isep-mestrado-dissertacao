@@ -1,49 +1,8 @@
-# Secrets and operational database
-.env
-.env.*
-!.env.example
-*.pem
-*.key
-passwords.txt
-config.local.php
-site/config.php
-site/includes/config.php
-
-# Session tokens, resume tokens, admin credentials
-*token*
-*secret*
-
-# Database dumps (keep site/sql/*.sql schema/migrations)
-dumps/
-mariadb/
-*.sql.gz
-/*.sql
-
-# Python
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-*.egg-info/
-
-# OS / editor
-.DS_Store
-.idea/
-.vscode/
-
-# Large local model caches
-.cache/
-models/
-*.bin
-*.safetensors
-
 # latexmk / Makefile: auxiliares em build/, PDF copiado para a raiz
 /build/
-documento/build/
-documento/main.pdf
 
-# PDF gerado na raiz (descomentar se não quiser versionar main.pdf)
-# /main.pdf
+# PDF gerado na raiz 
+/main.pdf
 
 # Fugas de auxiliares LaTeX na raiz (caso compile sem -outdir)
 *.aux

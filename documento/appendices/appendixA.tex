@@ -1,0 +1,39 @@
+% Appendix A
+
+\chapter{Materiais experimentais}
+\label{AppendixA}
+
+\section{Estímulos (inglês)}
+
+Os doze estímulos utilizados no estudo principal (ficheiros \texttt{stimuli.json} da pipeline) são:
+
+\begin{enumerate}
+ \item \textit{I am so proud and happy about this promotion, but I am also scared and anxious that everyone will soon see that I do not deserve it.}
+ \item \textit{I'm genuinely happy for my sister's wedding, yet I also feel lonely and left behind in my own life.}
+ \item \textit{I love living in this city and all the opportunities here, but the rent stress is making me resent every morning.}
+ \item \textit{I'm proud that I finished the marathon, although my injury still scares me and I keep thinking I pushed too hard.}
+ \item \textit{I want to start this new relationship because I care about them, but I also feel anxious that I will get hurt again.}
+ \item \textit{I'm grateful my parents support me financially, yet I feel ashamed and angry that I still depend on them at my age.}
+ \item \textit{I feel relieved and even joyful that I finally submitted my thesis, but I am also disappointed and worried because parts of it are still weak.}
+ \item \textit{I'm excited about moving abroad for work, while at the same time I feel sad about leaving my friends and family.}
+ \item \textit{I admire my colleague's confidence in meetings, but I also feel annoyed and small whenever they interrupt me.}
+ \item \textit{I'm hopeful the medical results will be fine, yet every notification on my phone fills me with dread.}
+ \item \textit{I enjoy remote work and the freedom it gives me, but I miss the office and feel disconnected from the team.}
+ \item \textit{I'm glad I told the truth in that argument, although I regret how harsh I sounded and keep replaying it.}
+\end{enumerate}
+
+Apenas estímulos classificados como ambivalentes pelo GoEmotions com \(\tau = 0{,}10\) entram no lote de geração.
+
+\section{Identificadores Hugging Face}
+
+\begin{itemize}
+ \item Classificador: \texttt{SamLowe/roberta-base-go\_emotions}
+ \item E1: \texttt{microsoft/DialoGPT-medium}
+ \item E2: \texttt{facebook/blenderbot-400M-distill}
+ \item E3: \texttt{microsoft/Phi-3-mini-4k-instruct}
+ \item E4: \texttt{Qwen/Qwen2.5-3B-Instruct}
+\end{itemize}
+
+\section{Consentimento e instrução ao avaliador}
+
+O instrumento de recolha foi um questionário online bilingue (português e inglês), desenvolvido para este estudo. Capturas da interface do participante e do painel de administração constam do Capítulo~\ref{chap:Chapter4}. O texto de consentimento informado e a instrução Likert (empatia 1--7) eram apresentados na interface, antes e durante a avaliação. Em síntese, os participantes adultos (\(\ge 18\) anos) avaliam respostas sem conhecer o modelo nem a condição experimental, após consentimento voluntário, e não se pedem dados demográficos. Após cerca de 24 itens, podem optar por continuar com itens adicionais ou concluir, seguindo-se uma verificação de atenção.
